@@ -10,23 +10,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   color: #1e293b;
+  /* Removed animated gradient background, using static gradient */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
   min-height: 100vh;
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+/* Removed @keyframes gradientShift animation */
 
 .container {
   max-width: 1200px;
@@ -79,33 +68,17 @@ nav ul.nav-list li a {
   font-weight: 600;
   padding: 0.625rem 1.25rem;
   border-radius: 12px;
-  transition: all 0.3s ease;
+  /* Removed transition and transform animations */
   position: relative;
   overflow: hidden;
 }
 
-nav ul.nav-list li a::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transition: left 0.3s ease;
-  z-index: -1;
-  border-radius: 12px;
-}
-
-nav ul.nav-list li a:hover::before,
-nav ul.nav-list li a.active::before {
-  left: 0;
-}
+/* Removed nav link hover animation with ::before pseudo-element */
 
 nav ul.nav-list li a:hover,
 nav ul.nav-list li a.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
@@ -153,31 +126,12 @@ main {
   min-width: 300px;
 }
 
-/* Added greeting wave animation */
+/* Removed greeting wave animation */
 .greeting-wave {
   display: inline-block;
-  animation: wave 2s ease-in-out infinite;
 }
 
-@keyframes wave {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  10%,
-  30% {
-    transform: rotate(14deg);
-  }
-  20% {
-    transform: rotate(-8deg);
-  }
-  40% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-}
+/* Removed @keyframes wave animation */
 
 .third-section h1 {
   font-size: 3rem;
@@ -211,7 +165,7 @@ main {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -221,7 +175,7 @@ main {
 }
 
 .cta-btn.primary:hover {
-  transform: translateY(-3px);
+  /* Removed transform animation */
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
@@ -234,7 +188,7 @@ main {
 .cta-btn.secondary:hover {
   background: #667eea;
   color: white;
-  transform: translateY(-3px);
+  /* Removed transform animation */
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
@@ -250,11 +204,11 @@ main {
   object-fit: cover;
   border: 6px solid white;
   box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-  transition: transform 0.3s ease;
+  /* Removed transition animation */
 }
 
 .profile-image:hover {
-  transform: scale(1.05) rotate(5deg);
+  /* Removed transform scale and rotate animation */
 }
 
 /* Added about page grid and card styles */
@@ -282,11 +236,11 @@ main {
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
+  /* Removed transition animation */
 }
 
 .about-card:hover {
-  transform: translateY(-8px);
+  /* Removed transform translateY animation */
   box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
 }
 
@@ -367,19 +321,10 @@ main {
   overflow-y: auto;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  animation: modalSlideIn 0.4s ease;
+  /* Removed animation */
 }
 
-@keyframes modalSlideIn {
-  from {
-    transform: translateY(-100px) scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
+/* Removed @keyframes modalSlideIn animation */
 
 .close-button {
   color: #94a3b8;
@@ -387,13 +332,13 @@ main {
   font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   line-height: 1;
 }
 
 .close-button:hover {
   color: #667eea;
-  transform: rotate(90deg);
+  /* Removed transform rotate animation */
 }
 
 /* DateTime Display */
@@ -437,7 +382,7 @@ main {
   border-radius: 12px;
   font-size: 1rem;
   font-family: inherit;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   background: rgba(255, 255, 255, 0.9);
 }
 
@@ -469,7 +414,7 @@ button {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -483,7 +428,7 @@ button[type="submit"],
 button[type="submit"]:hover,
 #addButton:hover,
 #addProjectButton:hover {
-  transform: translateY(-3px);
+  /* Removed transform translateY animation */
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
@@ -497,7 +442,7 @@ button[type="reset"],
 button[type="reset"]:hover,
 #resetButton:hover,
 #resetProjectButton:hover {
-  transform: translateY(-3px);
+  /* Removed transform translateY animation */
   box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
 }
 
@@ -511,7 +456,7 @@ button[type="button"],
 button[type="button"]:hover,
 #newButton:hover,
 #newProjectButton:hover {
-  transform: translateY(-3px);
+  /* Removed transform translateY animation */
   box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
 }
 
@@ -530,12 +475,12 @@ button[type="button"]:hover,
   margin-bottom: 1.25rem;
   border-left: 5px solid #667eea;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  /* Removed transition animation */
 }
 
 .journal-entry:hover,
 .project-entry:hover {
-  transform: translateX(8px);
+  /* Removed transform translateX animation */
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
   border-left-color: #764ba2;
 }
@@ -579,11 +524,11 @@ button[type="button"]:hover,
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  /* Removed transition animation */
 }
 
 .project-image:hover {
-  transform: scale(1.1);
+  /* Removed transform scale animation */
 }
 
 /* Files List Styles */
@@ -602,12 +547,12 @@ button[type="button"]:hover,
   font-size: 0.875rem;
   color: #475569;
   font-weight: 600;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
 }
 
 .files-list li:hover {
   background: rgba(102, 126, 234, 0.2);
-  transform: translateX(5px);
+  /* Removed transform translateX animation */
 }
 
 .files-list li:before {
@@ -662,11 +607,11 @@ button[type="button"]:hover,
   padding: 2rem;
   border-radius: 16px;
   border: 2px solid rgba(102, 126, 234, 0.2);
-  transition: all 0.3s ease;
+  /* Removed transition animation */
 }
 
 .about-content .about-card:hover {
-  transform: translateY(-5px);
+  /* Removed transform translateY animation */
   box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
   border-color: #667eea;
 }
@@ -739,12 +684,12 @@ button[type="button"]:hover,
   border-radius: 8px;
   cursor: pointer;
   font-size: 1.125rem;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .edit-btn:hover {
-  transform: translateY(-2px);
+  /* Removed transform translateY animation */
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
 }
 
@@ -780,12 +725,12 @@ button[type="button"]:hover,
   border-radius: 8px;
   cursor: pointer;
   font-size: 1.25rem;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
 }
 
 .settings-btn:hover {
-  transform: rotate(90deg) scale(1.1);
+  /* Removed transform rotate and scale animation */
   box-shadow: 0 4px 12px rgba(79, 172, 254, 0.5);
 }
 
@@ -808,7 +753,7 @@ button[type="button"]:hover,
   font-size: 0.9375rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   flex: 1;
   min-width: 140px;
@@ -820,7 +765,7 @@ button[type="button"]:hover,
 }
 
 .reset-all-btn:hover {
-  transform: translateY(-2px);
+  /* Removed transform translateY animation */
   box-shadow: 0 4px 12px rgba(240, 147, 251, 0.5);
 }
 
@@ -830,7 +775,7 @@ button[type="button"]:hover,
 }
 
 .add-new-btn:hover {
-  transform: translateY(-2px);
+  /* Removed transform translateY animation */
   box-shadow: 0 4px 12px rgba(79, 172, 254, 0.5);
 }
 
@@ -845,11 +790,11 @@ button[type="button"]:hover,
   border-radius: 16px;
   margin-bottom: 1.5rem;
   border-left: 4px solid #667eea;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
 }
 
 .cv-section:hover {
-  transform: translateX(5px);
+  /* Removed transform translateX animation */
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
   border-left-color: #764ba2;
 }
@@ -891,7 +836,7 @@ button[type="button"]:hover,
   border-radius: 10px;
   font-size: 1rem;
   font-family: inherit;
-  transition: all 0.3s ease;
+  /* Removed transition animation */
 }
 
 .edit-form input[type="text"]:focus,
