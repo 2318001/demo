@@ -1,66 +1,31 @@
-/* css/style.css - single canonical stylesheet
-   Merged from previous common + page-specific files.
-   Order / intent:
-     1) Reset & variables
-     2) Base typography & container
-     3) Header / nav / logo
-     4) Index (hero/profile) rules
-     5) About rules (page-specific)
-     6) Journal rules (page-specific)
-     7) Projects rules (page-specific)
-     8) Footer (kept last so it applies after other rules)
-*/
-
-/* Reset and Base */
+/* File: css/style.css */
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --font-primary: 'Segoe UI', Arial, sans-serif;
-    --font-size-sm: 14px;
-    --font-size-base: 16px;
-    --font-size-md: 18px;
-    --font-size-lg: 24px;
-    --font-size-xl: 32px;
-    --font-size-xxl: 48px;
-    --color-primary: #2563eb;
-    --color-secondary: #1e293b;
-    --color-accent: #3b82f6;
-    --color-text: #334155;
-    --color-text-light: #64748b;
-    --color-bg: #f8fafc;
-    --color-white: #ffffff;
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-xxl: 3rem;
-}
-
 body {
-    font-family: var(--font-primary);
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    line-height: 1.7;
-    font-size: var(--font-size-base);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
 }
 
 .container {
-    width: 100%;
-    padding: 0 var(--spacing-md);
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
-    max-width: 100%;
+    padding: 0 20px;
 }
 
-/* Header and Navigation */
+/* Header Styles */
 header {
-    background: var(--color-secondary);
-    padding: var(--spacing-lg) 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #16a34a;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 header .container {
@@ -69,183 +34,313 @@ header .container {
     align-items: center;
 }
 
-.logo {
-    font-size: var(--font-size-lg);
+.logo-text {
+    font-size: 1.5rem;
     font-weight: bold;
-    color: var(--color-accent);
-}
-
-/* Title icon - small image placed near headings when used */
-.title-icon {
-    width: 44px;
-    height: 44px;
-    object-fit: cover;
-    border-radius: 8px;
-    vertical-align: middle;
-    margin-right: 0.75rem;
-}
-
-@media (max-width: 480px) {
-    .title-icon {
-        width: 36px;
-        height: 36px;
-        margin-right: 0.5rem;
-    }
-}
-
-nav {
-    margin-left: auto; /* Push navigation to the right */
 }
 
 .nav-list {
-    list-style: none;
     display: flex;
-    gap: var(--spacing-md);
-    justify-content: flex-end; /* Align items to the right */
+    list-style: none;
 }
 
-nav a {
-    color: var(--color-white);
+.nav-list li {
+    margin-left: 1.5rem;
+}
+
+.nav-list a {
+    color: white;
     text-decoration: none;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 0.5rem 1rem;
     border-radius: 4px;
-    transition: all 0.3s ease;
-    font-weight: 500;
+    transition: background-color 0.3s;
 }
 
-nav a:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-accent);
+.nav-list a:hover, .nav-list a.active {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-nav a.active {
-    background: var(--color-accent);
-    color: var(--color-white);
+/* Main Content Styles */
+main {
+    padding: 2rem 0;
+    min-height: calc(100vh - 140px);
 }
 
-/* --- Index / Hero / Profile (page-specific) --- */
 .first-section {
-    padding: var(--spacing-xxl) 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
 }
 
 .second-section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    align-items: center;
+    gap: 2rem;
 }
 
 .third-section {
-    padding: 0; /* text block inside hero */
+    text-align: center;
+}
+
+.third-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #16a34a;
+}
+
+.description {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .hero-image {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
+    text-align: center;
 }
 
 .profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #16a34a;
+}
+
+/* About Page Styles */
+.about-section h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #16a34a;
+    font-size: 2.5rem;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.about-image {
+    text-align: center;
+}
+
+.about-image img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #16a34a;
+}
+
+.about-text h2 {
+    color: #16a34a;
+    margin-bottom: 1rem;
+}
+
+.about-text h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #16a34a;
+}
+
+.about-text ul {
+    margin-left: 1.5rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-button:hover {
+    color: #000;
+}
+
+.datetime {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #16a34a;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
     display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
 }
 
-/* --- About page (page-specific, currently minimal) --- */
-.about-profile {
-    padding: var(--spacing-xl) 0;
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
 }
 
-.about-profile .bio {
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: 8px;
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
 }
 
-/* --- Journal page (page-specific) --- */
-.journal-entries {
-    padding: var(--spacing-xl) 0;
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
-.journal-entry {
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: 8px;
-    margin-bottom: var(--spacing-lg);
+.button-group button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
-/* --- Projects page (page-specific) --- */
-.projects-grid {
-    display: grid;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-xl) 0;
+#addButton, #addProjectButton {
+    background-color: #16a34a;
+    color: white;
 }
 
-.project-card {
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: 8px;
+#addButton:hover, #addProjectButton:hover {
+    background-color: #13803d;
 }
 
-/* Media Queries */
+#resetButton, #resetProjectButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+#resetButton:hover, #resetProjectButton:hover {
+    background-color: #5a6268;
+}
+
+#newButton, #newProjectButton {
+    background-color: #0dcaf0;
+    color: white;
+}
+
+#newButton:hover, #newProjectButton:hover {
+    background-color: #0bb5d4;
+}
+
+/* Journal Entries Styles */
+.journal-entries, .projects-list {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+}
+
+.journal-entry, .project-entry {
+    background-color: #f8f9fa;
+    border-left: 4px solid #16a34a;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.journal-entry h3, .project-entry h3 {
+    margin-bottom: 0.5rem;
+    color: #16a34a;
+}
+
+.journal-entry small, .project-entry small {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.files-list {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+}
+
+.project-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.project-image {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+/* Footer Styles */
+.site-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* Responsive Design */
 @media (min-width: 768px) {
-    .container {
-        max-width: 720px;
-    }
-
-    .nav-list {
-        flex-direction: row;
-        gap: var(--spacing-md);
-    }
-
     .second-section {
         flex-direction: row;
+        justify-content: space-between;
         align-items: center;
     }
-
-    /* Place the text on the left and image on the right */
+    
     .third-section {
-        flex: 1 1 60%;
+        text-align: left;
+        flex: 1;
     }
-
-    .hero-image {
-        flex: 0 0 40%;
-        max-width: 40%;
-        order: 2; /* ensure image is on the right */
+    
+    .about-content {
+        flex-direction: row;
     }
-
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
+    
+    .about-image {
+        flex: 0 0 250px;
     }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        max-width: 960px;
+    
+    .about-text {
+        flex: 1;
     }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-
-/* Footer  */
-.site-footer {
-    background-color: #799985; 
-    color: #0412ce; 
-    padding: var(--spacing-md) 0;
-}
-
-.site-footer .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.site-footer p {
-    margin: 0;
-    font-size: 20px;
 }
