@@ -3,6 +3,8 @@
 // ============================================
 // Handles opening and closing of all modals
 function initializeModals() {
+  console.log("[v0] initializeModals() called")
+
   // Get modal elements
   const journalModal = document.getElementById("journalModal")
   const projectsModal = document.getElementById("projectsModal")
@@ -20,6 +22,7 @@ function initializeModals() {
 
   // Open journal modal when clicking Journal button
   journalBtn.onclick = () => {
+    console.log("[v0] Journal button clicked - opening modal")
     journalModal.style.display = "block"
     updateDateTime()
     checkJournalEmpty()
@@ -27,17 +30,20 @@ function initializeModals() {
 
   // Open projects modal when clicking Projects button
   projectsBtn.onclick = () => {
+    console.log("[v0] Projects button clicked - opening modal")
     projectsModal.style.display = "block"
     updateDateTime()
     checkProjectsEmpty()
   }
 
   aboutBtn.onclick = () => {
+    console.log("[v0] About button clicked - opening modal")
     aboutModal.style.display = "block"
     updateDateTime()
   }
 
   cvBtn.onclick = () => {
+    console.log("[v0] CV button clicked - opening modal")
     cvModal.style.display = "block"
     updateDateTime()
   }
@@ -45,6 +51,7 @@ function initializeModals() {
   // Close modals when clicking (x) button
   Array.from(closeButtons).forEach((button) => {
     button.onclick = function () {
+      console.log("[v0] Close button clicked")
       this.closest(".modal").style.display = "none"
     }
   })
@@ -52,6 +59,7 @@ function initializeModals() {
   // Close modals when clicking outside the modal content
   window.onclick = (event) => {
     if (event.target.classList.contains("modal")) {
+      console.log("[v0] Clicked outside modal - closing")
       event.target.style.display = "none"
     }
   }
@@ -181,10 +189,18 @@ function initializeEditCv() {
   const uploadCvBtn = document.getElementById("uploadCvBtn")
   const cvFileInput = document.getElementById("cvFileInput")
 
-  if (!editCvBtn || !editCvModal || !editCvForm) return
+  let uploadedCvFile = null
+
+  if (!editCvBtn || !editCvModal || !editCvForm) {
+    console.log("[v0] CV elements not found")
+    return
+  }
+
+  console.log("[v0] CV edit functionality initialized")
 
   // Open edit modal and populate with current value
   editCvBtn.onclick = () => {
+    console.log("[v0] Edit CV button clicked")
     const currentText = document.getElementById("cvContent").innerText.trim()
     document.getElementById("editCvText").value = currentText
     editCvModal.style.display = "block"
@@ -193,6 +209,7 @@ function initializeEditCv() {
   // Save changes when form is submitted
   editCvForm.onsubmit = (e) => {
     e.preventDefault()
+    console.log("[v0] CV form submitted")
 
     const newText = document.getElementById("editCvText").value
     // Convert line breaks to HTML
@@ -206,18 +223,45 @@ function initializeEditCv() {
   // Handle CV file upload
   if (uploadCvBtn && cvFileInput) {
     uploadCvBtn.onclick = () => {
+      console.log("[v0] Upload CV button clicked")
       cvFileInput.click()
     }
 
     cvFileInput.onchange = (e) => {
       const file = e.target.files[0]
       if (file) {
-        // Display uploaded file name
-        document.getElementById("cvFileName").textContent = file.name
-        document.getElementById("cvFileDisplay").style.display = "block"
-        alert(`CV file "${file.name}" uploaded successfully!`)
+        console.log("[v0] CV file selected:", file.name)
+        uploadedCvFile = file
+
+        const fileURL = URL.createObjectURL(file)
+
+        // Display uploaded file name with view button
+        const cvFileDisplay = document.getElementById("cvFileDisplay")
+        const cvFileName = document.getElementById("cvFileName")
+
+        cvFileName.textContent = file.name
+        cvFileDisplay.style.display = "block"
+
+        let viewBtn = document.getElementById("viewCvBtn")
+        if (!viewBtn) {
+          viewBtn = document.createElement("button")
+          viewBtn.id = "viewCvBtn"
+          viewBtn.className = "cta-btn primary"
+          viewBtn.textContent = "View Uploaded CV"
+          viewBtn.style.marginTop = "10px"
+          cvFileDisplay.appendChild(viewBtn)
+        }
+
+        // Open CV in new tab when view button is clicked
+        viewBtn.onclick = () => {
+          window.open(fileURL, "_blank")
+        }
+
+        alert(`CV file "${file.name}" uploaded successfully! Click "View Uploaded CV" to open it.`)
       }
     }
+  } else {
+    console.log("[v0] Upload CV button or file input not found")
   }
 }
 
@@ -226,47 +270,70 @@ function initializeEditCv() {
 // ============================================
 // Handles the + button clicks to show/hide journal and project forms
 function initializeSettingsMenus() {
+  console.log("[v0] initializeSettingsMenus() called")
+
   const journalSettingsBtn = document.getElementById("journalSettingsBtn")
   const projectsSettingsBtn = document.getElementById("projectsSettingsBtn")
   const journalForm = document.getElementById("journalForm")
   const projectForm = document.getElementById("projectForm")
 
+  console.log("[v0] Journal settings button found:", !!journalSettingsBtn)
+  console.log("[v0] Projects settings button found:", !!projectsSettingsBtn)
+  console.log("[v0] Journal form found:", !!journalForm)
+  console.log("[v0] Project form found:", !!projectForm)
+
   // Toggle journal form when clicking + button
   if (journalSettingsBtn && journalForm) {
-    journalSettingsBtn.onclick = () => {
+    console.log("[v0] Attaching click handler to journal settings button")
+    journalSettingsBtn.onclick = (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("[v0] ===== JOURNAL SETTINGS BUTTON CLICKED =====")
+      console.log("[v0] Current form display:", journalForm.style.display)
+
       if (journalForm.style.display === "none" || journalForm.style.display === "") {
-        // Show form
         journalForm.style.display = "block"
         journalSettingsBtn.textContent = "×"
         journalSettingsBtn.title = "Close Form"
+        console.log("[v0] Journal form is now VISIBLE")
       } else {
-        // Hide form
         journalForm.style.display = "none"
         journalSettingsBtn.textContent = "+"
         journalSettingsBtn.title = "Add New Journal"
-        // Clear form when closing
         journalForm.reset()
+        console.log("[v0] Journal form is now HIDDEN")
       }
     }
+    console.log("[v0] Journal settings button click handler attached successfully")
+  } else {
+    console.error("[v0] ERROR: Could not attach journal settings handler!")
   }
 
   // Toggle project form when clicking + button
   if (projectsSettingsBtn && projectForm) {
-    projectsSettingsBtn.onclick = () => {
+    console.log("[v0] Attaching click handler to projects settings button")
+    projectsSettingsBtn.onclick = (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("[v0] ===== PROJECTS SETTINGS BUTTON CLICKED =====")
+      console.log("[v0] Current form display:", projectForm.style.display)
+
       if (projectForm.style.display === "none" || projectForm.style.display === "") {
-        // Show form
         projectForm.style.display = "block"
         projectsSettingsBtn.textContent = "×"
         projectsSettingsBtn.title = "Close Form"
+        console.log("[v0] Project form is now VISIBLE")
       } else {
-        // Hide form
         projectForm.style.display = "none"
         projectsSettingsBtn.textContent = "+"
         projectsSettingsBtn.title = "Add New Project"
-        // Clear form when closing
         projectForm.reset()
+        console.log("[v0] Project form is now HIDDEN")
       }
     }
+    console.log("[v0] Projects settings button click handler attached successfully")
+  } else {
+    console.error("[v0] ERROR: Could not attach projects settings handler!")
   }
 }
 
@@ -274,6 +341,10 @@ function initializeSettingsMenus() {
 // INITIALIZE ON PAGE LOAD
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("[v0] ========================================")
+  console.log("[v0] PAGE LOADED - STARTING INITIALIZATION")
+  console.log("[v0] ========================================")
+
   // Initialize all modal functionality
   initializeModals()
 
@@ -284,7 +355,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeEditAbout()
   initializeEditCv()
 
-  // Initialize settings menu toggles
   initializeSettingsMenus()
 
   // Update date and time every second
@@ -295,13 +365,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const journalForm = document.getElementById("journalForm")
   const journalEntries = document.getElementById("journalEntries")
 
+  console.log("[v0] Journal form element:", !!journalForm)
+  console.log("[v0] Journal entries container:", !!journalEntries)
+
   if (journalForm) {
-    // Handle journal form submission
     journalForm.addEventListener("submit", (e) => {
       e.preventDefault()
+      console.log("[v0] ===== JOURNAL FORM SUBMITTED =====")
 
       const title = document.getElementById("journalTitle").value
       const content = document.getElementById("journalContent").value
+
+      console.log("[v0] Title:", title)
+      console.log("[v0] Content length:", content.length)
 
       if (!title || !content) {
         alert("Please fill in all fields")
@@ -319,6 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Insert new entry at the top (newest first)
       journalEntries.insertBefore(entry, journalEntries.firstChild)
+      console.log("[v0] Journal entry added to DOM")
 
       // Clear form and hide it
       journalForm.reset()
@@ -330,20 +407,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       alert("Journal entry added successfully!")
     })
+    console.log("[v0] Journal form submit handler attached")
   }
 
   // Initialize projects functionality
   const projectForm = document.getElementById("projectForm")
   const projectsList = document.getElementById("projectsList")
 
+  console.log("[v0] Project form element:", !!projectForm)
+  console.log("[v0] Projects list container:", !!projectsList)
+
   if (projectForm) {
-    // Handle project form submission
     projectForm.addEventListener("submit", (e) => {
       e.preventDefault()
+      console.log("[v0] ===== PROJECT FORM SUBMITTED =====")
 
       const title = document.getElementById("projectTitle").value
       const description = document.getElementById("projectDescription").value
       const files = document.getElementById("projectFiles").files
+
+      console.log("[v0] Title:", title)
+      console.log("[v0] Description length:", description.length)
+      console.log("[v0] Files count:", files.length)
 
       if (!title || !description) {
         alert("Please fill in all required fields")
@@ -373,6 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Insert new project at the top (newest first)
       projectsList.insertBefore(project, projectsList.firstChild)
+      console.log("[v0] Project entry added to DOM")
 
       // Clear form and hide it
       projectForm.reset()
@@ -384,11 +470,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       alert("Project added successfully!")
     })
+    console.log("[v0] Project form submit handler attached")
   }
 
   // Initial empty state checks
   checkJournalEmpty()
   checkProjectsEmpty()
+
+  console.log("[v0] ========================================")
+  console.log("[v0] INITIALIZATION COMPLETE")
+  console.log("[v0] ========================================")
 })
 
 // ============================================
