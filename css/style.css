@@ -227,6 +227,40 @@ button[type="submit"]:hover {
   margin-bottom: 0;
 }
 
+/* Settings button (+ icon) to toggle form */
+.settings-btn {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  min-width: 45px;
+  height: 45px;
+}
+
+.settings-btn:hover {
+  background: #38a169;
+}
+
+/* Added reset button styling */
+.reset-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  height: 45px;
+}
+
+.reset-btn:hover {
+  background: #c53030;
+}
+
 /* ============================================
    FOOTER
    ============================================ */
@@ -308,23 +342,6 @@ button[type="submit"]:hover {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
-}
-
-/* Settings button (+ icon) to toggle form */
-.settings-btn {
-  background: #48bb78;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.5rem;
-  min-width: 45px;
-  height: 45px;
-}
-
-.settings-btn:hover {
-  background: #38a169;
 }
 
 /* ============================================
@@ -470,6 +487,20 @@ button[type="submit"]:hover {
   border-left: 3px solid #2c5282;
   font-size: 0.875rem;
   color: #4a5568;
+}
+
+/* Added clickable file link styling */
+.file-link {
+  color: #2c5282;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: color 0.2s;
+}
+
+.file-link:hover {
+  color: #1a365d;
+  text-decoration: underline;
 }
 
 /* ============================================

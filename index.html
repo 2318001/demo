@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" href="image/mario 111.png" type="image/png">
     <title>Learning Journal PWA - Mobile Application Development</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="image/mario 111.png" type="image/png">
+    <link rel="icon" href="image/mario-111.jpg" type="image/png">
     <meta name="theme-color" content="#0ea5e9">
     <script src="script.js" defer></script>
 </head>
@@ -15,7 +14,7 @@
     <header>
         <div class="container">
             <div class="logo">         
-                <span class="logo-text">WEL~COME~TO~LEARNING JOURNAL</span>
+                <span class="logo-text">MY LEARNING JOURNAL</span>
             </div>
             <nav>
                 <ul class="nav-list">
@@ -53,7 +52,7 @@
                         </p>
                     </div>
                     <div class="hero-image">
-                        <img src="image/mario 111.png" alt="Profile image of Rajan" class="profile-image">
+                        <img src="image/mario-111.jpg" alt="Profile image of Rajan" class="profile-image">
                     </div>
                 </div>
             </section>
@@ -62,11 +61,11 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 RAJAN~KC~LEARNING~JOURNAL~PWA</p>
+            <p>&copy; 2025 Rajan KC - Learning Journal</p>
         </div>
     </footer>
 
-    <!-- for editing introduction on home page -->
+    <!-- Edit Hero Modal - for editing introduction on home page -->
     <div id="editHeroModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -96,7 +95,11 @@
             
             <div class="modal-header-actions">
                 <h2 class="gradient-text">My Journal</h2>
-                <button class="settings-btn" id="journalSettingsBtn" title="Add New Journal">+</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="settings-btn" id="journalSettingsBtn" title="Add New Journal">+</button>
+                    <!-- Added reset button to clear all journal entries -->
+                    <button class="reset-btn" id="resetJournalBtn" title="Reset All Journals">Reset</button>
+                </div>
             </div>
             
             <form id="journalForm" class="journal-form" style="display: none;">
@@ -129,7 +132,11 @@
             
             <div class="modal-header-actions">
                 <h2 class="gradient-text">My Projects</h2>
-                <button class="settings-btn" id="projectsSettingsBtn" title="Add New Project">+</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="settings-btn" id="projectsSettingsBtn" title="Add New Project">+</button>
+                    <!-- Added reset button to clear all projects -->
+                    <button class="reset-btn" id="resetProjectsBtn" title="Reset All Projects">Reset</button>
+                </div>
             </div>
             
             <form id="projectForm" class="project-form" style="display: none;">
@@ -145,7 +152,8 @@
 
                 <div class="form-group">
                     <label for="projectFiles">Project Images:</label>
-                    <input type="file" id="projectFiles" name="projectFiles" accept="image/*" multiple>
+                    <!-- Changed to accept images and videos -->
+                    <input type="file" id="projectFiles" name="projectFiles" accept="image/*,video/*" multiple>
                 </div>
                 
                 <button type="submit" id="addProjectButton" class="cta-btn primary">Submit Project</button>

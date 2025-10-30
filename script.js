@@ -581,9 +581,6 @@ function hideMobileFAB() {
 
 */
 
-
-//without debugginh in code
-
 // ============================================
 // MODAL FUNCTIONALITY
 // ============================================
@@ -901,6 +898,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initializeSettingsMenus()
 
+  initializeResetButtons()
+
   // Update date and time every second
   setInterval(updateDateTime, 1000)
   updateDateTime()
@@ -966,12 +965,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const project = document.createElement("div")
       project.className = "project-entry"
 
-      // Build file list if files were uploaded
       let filesList = ""
       if (files.length > 0) {
         filesList = '<ul class="files-list">'
         for (let i = 0; i < files.length; i++) {
-          filesList += `<li>${files[i].name}</li>`
+          const file = files[i]
+          const fileURL = URL.createObjectURL(file)
+          const fileType = file.type.startsWith("image/") ? "image" : "video"
+
+          filesList += `<li>
+            <a href="${fileURL}" target="_blank" class="file-link" data-type="${fileType}">
+              📎 ${file.name}
+            </a>
+          </li>`
         }
         filesList += "</ul>"
       }
@@ -1090,5 +1096,41 @@ function hideMobileFAB() {
   const fab = document.getElementById("mobileFAB")
   if (fab) {
     fab.style.display = "none"
+  }
+}
+
+// ============================================
+// RESET BUTTONS FUNCTIONALITY
+// ============================================
+function initializeResetButtons() {
+  const resetJournalBtn = document.getElementById("resetJournalBtn")
+  const resetProjectsBtn = document.getElementById("resetProjectsBtn")
+
+  // Reset all journal entries
+  if (resetJournalBtn) {
+    resetJournalBtn.onclick = () => {
+      const confirmed = confirm("Are you sure you want to delete ALL journal entries? This cannot be undone!")
+
+      if (confirmed) {
+        const journalEntries = document.getElementById("journalEntries")
+        journalEntries.innerHTML = ""
+        checkJournalEmpty()
+        alert("All journal entries have been deleted.")
+      }
+    }
+  }
+
+  // Reset all project entries
+  if (resetProjectsBtn) {
+    resetProjectsBtn.onclick = () => {
+      const confirmed = confirm("Are you sure you want to delete ALL projects? This cannot be undone!")
+
+      if (confirmed) {
+        const projectsList = document.getElementById("projectsList")
+        projectsList.innerHTML = ""
+        checkProjectsEmpty()
+        alert("All projects have been deleted.")
+      }
+    }
   }
 }
