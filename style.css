@@ -1,0 +1,251 @@
+/* css/style.css - single canonical stylesheet
+   Merged from previous common + page-specific files.
+   Order / intent:
+     1) Reset & variables
+     2) Base typography & container
+     3) Header / nav / logo
+     4) Index (hero/profile) rules
+     5) About rules (page-specific)
+     6) Journal rules (page-specific)
+     7) Projects rules (page-specific)
+     8) Footer (kept last so it applies after other rules)
+*/
+
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --font-primary: 'Segoe UI', Arial, sans-serif;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-md: 18px;
+    --font-size-lg: 24px;
+    --font-size-xl: 32px;
+    --font-size-xxl: 48px;
+    --color-primary: #2563eb;
+    --color-secondary: #1e293b;
+    --color-accent: #3b82f6;
+    --color-text: #334155;
+    --color-text-light: #64748b;
+    --color-bg: #f8fafc;
+    --color-white: #ffffff;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.7;
+    font-size: var(--font-size-base);
+}
+
+.container {
+    width: 100%;
+    padding: 0 var(--spacing-md);
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Header and Navigation */
+header {
+    background: var(--color-secondary);
+    padding: var(--spacing-lg) 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    color: var(--color-accent);
+}
+
+/* Title icon - small image placed near headings when used */
+.title-icon {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px;
+    vertical-align: middle;
+    margin-right: 0.75rem;
+}
+
+@media (max-width: 480px) {
+    .title-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 0.5rem;
+    }
+}
+
+nav {
+    margin-left: auto; /* Push navigation to the right */
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end; /* Align items to the right */
+}
+
+nav a {
+    color: var(--color-white);
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-accent);
+}
+
+nav a.active {
+    background: var(--color-accent);
+    color: var(--color-white);
+}
+
+/* --- Index / Hero / Profile (page-specific) --- */
+.first-section {
+    padding: var(--spacing-xxl) 0;
+}
+
+.second-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.third-section {
+    padding: 0; /* text block inside hero */
+}
+
+.hero-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: block;
+}
+
+/* --- About page (page-specific, currently minimal) --- */
+.about-profile {
+    padding: var(--spacing-xl) 0;
+}
+
+.about-profile .bio {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+}
+
+/* --- Journal page (page-specific) --- */
+.journal-entries {
+    padding: var(--spacing-xl) 0;
+}
+
+.journal-entry {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* --- Projects page (page-specific) --- */
+.projects-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl) 0;
+}
+
+.project-card {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .nav-list {
+        flex-direction: row;
+        gap: var(--spacing-md);
+    }
+
+    .second-section {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* Place the text on the left and image on the right */
+    .third-section {
+        flex: 1 1 60%;
+    }
+
+    .hero-image {
+        flex: 0 0 40%;
+        max-width: 40%;
+        order: 2; /* ensure image is on the right */
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Footer  */
+.site-footer {
+    background-color: #799985; 
+    color: #0412ce; 
+    padding: var(--spacing-md) 0;
+}
+
+.site-footer .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.site-footer p {
+    margin: 0;
+    font-size: 20px;
+}
