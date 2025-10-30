@@ -141,6 +141,7 @@ function initializeEditHero() {
 }
 
 // ============================================
+// EDIT ABOUT SECTION
 // ============================================
 // Allows editing of the About introduction text
 function initializeEditAbout() {
@@ -170,6 +171,7 @@ function initializeEditAbout() {
 }
 
 // ============================================
+// EDIT CV SECTION
 // ============================================
 // Allows editing of CV content and uploading CV files
 function initializeEditCv() {
@@ -220,6 +222,55 @@ function initializeEditCv() {
 }
 
 // ============================================
+// SETTINGS MENU TOGGLES (+ BUTTONS)
+// ============================================
+// Handles the + button clicks to show/hide journal and project forms
+function initializeSettingsMenus() {
+  const journalSettingsBtn = document.getElementById("journalSettingsBtn")
+  const projectsSettingsBtn = document.getElementById("projectsSettingsBtn")
+  const journalForm = document.getElementById("journalForm")
+  const projectForm = document.getElementById("projectForm")
+
+  // Toggle journal form when clicking + button
+  if (journalSettingsBtn && journalForm) {
+    journalSettingsBtn.onclick = () => {
+      if (journalForm.style.display === "none" || journalForm.style.display === "") {
+        // Show form
+        journalForm.style.display = "block"
+        journalSettingsBtn.textContent = "×"
+        journalSettingsBtn.title = "Close Form"
+      } else {
+        // Hide form
+        journalForm.style.display = "none"
+        journalSettingsBtn.textContent = "+"
+        journalSettingsBtn.title = "Add New Journal"
+        // Clear form when closing
+        journalForm.reset()
+      }
+    }
+  }
+
+  // Toggle project form when clicking + button
+  if (projectsSettingsBtn && projectForm) {
+    projectsSettingsBtn.onclick = () => {
+      if (projectForm.style.display === "none" || projectForm.style.display === "") {
+        // Show form
+        projectForm.style.display = "block"
+        projectsSettingsBtn.textContent = "×"
+        projectsSettingsBtn.title = "Close Form"
+      } else {
+        // Hide form
+        projectForm.style.display = "none"
+        projectsSettingsBtn.textContent = "+"
+        projectsSettingsBtn.title = "Add New Project"
+        // Clear form when closing
+        projectForm.reset()
+      }
+    }
+  }
+}
+
+// ============================================
 // INITIALIZE ON PAGE LOAD
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -229,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize hero section editing
   initializeEditHero()
 
+  // Initialize About and CV editing
   initializeEditAbout()
   initializeEditCv()
 
@@ -339,26 +391,33 @@ document.addEventListener("DOMContentLoaded", () => {
   checkProjectsEmpty()
 })
 
-// Declare the missing functions
+// ============================================
+// EMPTY STATE CHECKS
+// ============================================
+// Check if journal has entries and show/hide empty state message
 function checkJournalEmpty() {
   const journalEntries = document.getElementById("journalEntries")
-  if (journalEntries && journalEntries.children.length === 0) {
-    document.getElementById("journalEmptyMessage").style.display = "block"
-  } else {
-    document.getElementById("journalEmptyMessage").style.display = "none"
+  const emptyState = document.getElementById("journalEmptyState")
+
+  if (journalEntries && emptyState) {
+    if (journalEntries.children.length === 0) {
+      emptyState.style.display = "block"
+    } else {
+      emptyState.style.display = "none"
+    }
   }
 }
 
+// Check if projects has entries and show/hide empty state message
 function checkProjectsEmpty() {
   const projectsList = document.getElementById("projectsList")
-  if (projectsList && projectsList.children.length === 0) {
-    document.getElementById("projectsEmptyMessage").style.display = "block"
-  } else {
-    document.getElementById("projectsEmptyMessage").style.display = "none"
-  }
-}
+  const emptyState = document.getElementById("projectsEmptyState")
 
-function initializeSettingsMenus() {
-  // Placeholder for settings menu initialization logic
-  console.log("Settings menus initialized")
+  if (projectsList && emptyState) {
+    if (projectsList.children.length === 0) {
+      emptyState.style.display = "block"
+    } else {
+      emptyState.style.display = "none"
+    }
+  }
 }
