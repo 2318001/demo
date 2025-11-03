@@ -425,7 +425,7 @@ function initializeModals() {
 // ... keep the DOMContentLoaded event listener as it is ...
 
 // REMOVE THESE DUPLICATE CLASSES FROM THE BOTTOM:
-
+/*
 class BrowserAPIsManager {
   constructor(storage) {
     this.storage = storage
@@ -472,3 +472,4 @@ class StorageManager {
     localStorage.removeItem(key)
   }
 }
+*/
