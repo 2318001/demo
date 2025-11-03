@@ -10,7 +10,6 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Added About and CV back to navigation -->
     <header>
         <div class="container">
             <div class="logo">         
@@ -23,12 +22,13 @@
                     <li><a href="#" id="projectsBtn">Projects</a></li>
                     <li><a href="#" id="aboutBtn">About</a></li>
                     <li><a href="#" id="cvBtn">CV</a></li>
+                    <!-- Added theme toggle button -->
+                    <li><button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">🌙</button></li>
                 </ul>
             </nav>
         </div>
     </header>
     
-    <!-- Date and time banner on home page -->
     <div class="page-datetime-banner">
         <div class="container">
             <div id="pageDateTime" class="page-datetime"></div>
@@ -40,7 +40,6 @@
             <section class="first-section">
                 <div class="second-section">
                     <div class="third-section">
-                        <!-- Editable hero section with edit button -->
                         <div class="edit-section-header">
                             <h1>
                                 <span id="heroName">Hi, I'm Rajan KC</span>
@@ -65,7 +64,6 @@
         </div>
     </footer>
 
-    <!-- Edit Hero Modal - for editing introduction on home page -->
     <div id="editHeroModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -87,7 +85,6 @@
         </div>
     </div>
 
-    <!-- Journal Modal -->
     <div id="journalModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -97,7 +94,6 @@
                 <h2 class="gradient-text">My Journal</h2>
                 <div style="display: flex; gap: 0.5rem;">
                     <button class="settings-btn" id="journalSettingsBtn" title="Add New Journal">+</button>
-                    <!-- Added reset button to clear all journal entries -->
                     <button class="reset-btn" id="resetJournalBtn" title="Reset All Journals">Reset++</button>
                 </div>
             </div>
@@ -124,7 +120,6 @@
         </div>
     </div>
 
-    <!-- Projects Modal -->
     <div id="projectsModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -134,7 +129,6 @@
                 <h2 class="gradient-text">My Projects</h2>
                 <div style="display: flex; gap: 0.5rem;">
                     <button class="settings-btn" id="projectsSettingsBtn" title="Add New Project">+</button>
-                    <!-- Added reset button to clear all projects -->
                     <button class="reset-btn" id="resetProjectsBtn" title="Reset All Projects">Reset++</button>
                 </div>
             </div>
@@ -152,7 +146,6 @@
 
                 <div class="form-group">
                     <label for="projectFiles">Project Images:</label>
-                    <!-- Changed to accept images and videos -->
                     <input type="file" id="projectFiles" name="projectFiles" accept="image/*,video/*" multiple>
                 </div>
                 
@@ -167,7 +160,7 @@
         </div>
     </div>
 
-    <!-- Added About Modal with editable introduction -->
+    <!-- Added YouTube video section to About Modal -->
     <div id="aboutModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -178,14 +171,29 @@
                 <button class="edit-btn" id="editAboutBtn" title="Edit About">Edit</button>
             </div>
             
-            <!-- Editable about introduction -->
             <div id="aboutContent" class="about-content">
                 <p>I am a passionate developer who loves creating innovative solutions and learning new technologies. My journey in software development has been exciting and full of growth.</p>
+            </div>
+
+            <!-- Added YouTube video section -->
+            <div class="youtube-section">
+                <h3>Featured Video</h3>
+                <div class="youtube-controls">
+                    <input type="text" id="youtubeVideoId" placeholder="Enter YouTube Video ID (e.g., dQw4w9WgXcQ)" />
+                    <button id="loadVideoBtn" class="cta-btn primary">Load Video</button>
+                </div>
+                <div id="youtubePlayer"></div>
+                <div class="video-controls" id="videoControls" style="display: none;">
+                    <button id="playBtn" class="control-btn">▶️ Play</button>
+                    <button id="pauseBtn" class="control-btn">⏸️ Pause</button>
+                    <button id="stopBtn" class="control-btn">⏹️ Stop</button>
+                    <button id="muteBtn" class="control-btn">🔇 Mute</button>
+                    <button id="unmuteBtn" class="control-btn">🔊 Unmute</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Added CV Modal with editable content and upload button -->
     <div id="cvModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -199,16 +207,13 @@
                 </div>
             </div>
             
-            <!-- Hidden file input for CV upload -->
             <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" style="display: none;">
             
-            <!-- Display uploaded CV file prominently -->
             <div id="cvFileDisplay" class="cv-file-display" style="display: none;">
                 <p><strong>Uploaded CV:</strong> <span id="cvFileName"></span></p>
                 <button id="viewCvBtn" class="cta-btn primary" style="margin-top: 10px;">View Uploaded CV</button>
             </div>
             
-            <!-- Editable CV content -->
             <div id="cvContent" class="cv-content">
                 <h3>Education</h3>
                 <p>Computer Science - University for creative arts</p>
@@ -222,7 +227,6 @@
         </div>
     </div>
 
-    <!-- Added Edit About Modal -->
     <div id="editAboutModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -239,7 +243,6 @@
         </div>
     </div>
 
-    <!-- Added Edit CV Modal -->
     <div id="editCvModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -255,5 +258,8 @@
             </form>
         </div>
     </div>
+
+    <!-- Load YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>

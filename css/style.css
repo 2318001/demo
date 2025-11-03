@@ -7,12 +7,47 @@
   box-sizing: border-box;
 }
 
+/* Added CSS variables for theme support */
+:root {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: white;
+  --bg-tertiary: #f7fafc;
+  --bg-accent: #edf2f7;
+  --text-primary: #4d9d99;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  --text-heading: #05c8bb;
+  --text-description: #08b06a;
+  --border-color: #e2e8f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --header-bg: white;
+  --footer-bg: #4f6ea3;
+}
+
+/* Dark mode theme variables */
+body.dark-mode {
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --bg-tertiary: #2d3748;
+  --bg-accent: #4a5568;
+  --text-primary: #a0aec0;
+  --text-secondary: #cbd5e0;
+  --text-tertiary: #a0aec0;
+  --text-heading: #4fd1c5;
+  --text-description: #48bb78;
+  --border-color: #4a5568;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --header-bg: #2d3748;
+  --footer-bg: #1a202c;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
-  color: #4d9d99;
-  background: #f5f5f5;
+  color: var(--text-primary);
+  background: var(--bg-primary);
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -25,12 +60,13 @@ body {
    HEADER AND NAVIGATION
    ============================================ */
 header {
-  background: white;
+  background: var(--header-bg);
   padding: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 0.3s ease;
 }
 
 header .container {
@@ -47,12 +83,39 @@ header .container {
   color: #0a8d31;
 }
 
-/* Navigation with 3 consistent items */
+/* Added theme toggle button styling */
+.theme-toggle {
+  background: transparent;
+  border: 2px solid #2c5282;
+  color: #2c5282;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: #2c5282;
+  transform: scale(1.1);
+}
+
+body.dark-mode .theme-toggle {
+  border-color: #4fd1c5;
+  color: #4fd1c5;
+}
+
+body.dark-mode .theme-toggle:hover {
+  background: #4fd1c5;
+  color: #1a202c;
+}
+
 nav ul.nav-list {
   list-style: none;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 nav ul.nav-list li a {
@@ -61,6 +124,11 @@ nav ul.nav-list li a {
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode nav ul.nav-list li a {
+  color: var(--text-secondary);
 }
 
 nav ul.nav-list li a:hover,
@@ -92,10 +160,11 @@ main {
 }
 
 .first-section {
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: background-color 0.3s ease;
 }
 
 .second-section {
@@ -113,19 +182,20 @@ main {
 
 .third-section h1 {
   font-size: 2.5rem;
-  color: #05c8bb;
+  color: var(--text-heading);
   margin-bottom: 1rem;
   font-weight: 700;
+  transition: color 0.3s ease;
 }
 
 .description {
   font-size: 1.1rem;
-  color: #08b06a;
+  color: var(--text-description);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
 }
 
-/* Hero image styling */
 .hero-image {
   flex-shrink: 0;
 }
@@ -136,7 +206,11 @@ main {
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+body.dark-mode .profile-image {
+  border-color: #4a5568;
 }
 
 /* ============================================
@@ -149,6 +223,7 @@ main {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .cta-btn.primary {
@@ -167,6 +242,7 @@ button {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 button[type="submit"] {
@@ -178,7 +254,6 @@ button[type="submit"]:hover {
   background: #2a4365;
 }
 
-/* Edit button for hero section */
 .edit-btn {
   background: #2c5282;
   color: white;
@@ -193,7 +268,6 @@ button[type="submit"]:hover {
   background: #2a4365;
 }
 
-/* Added upload button styling for CV */
 .upload-btn {
   background: #48bb78;
   color: white;
@@ -209,7 +283,6 @@ button[type="submit"]:hover {
   background: #38a169;
 }
 
-/* CV actions container */
 .cv-actions {
   display: flex;
   gap: 0.5rem;
@@ -227,7 +300,6 @@ button[type="submit"]:hover {
   margin-bottom: 0;
 }
 
-/* Settings button (+ icon) to toggle form */
 .settings-btn {
   background: #48bb78;
   color: white;
@@ -244,10 +316,9 @@ button[type="submit"]:hover {
   background: #38a169;
 }
 
-/* Added reset button styling */
 .reset-btn {
   background: #e53e3e;
-  color: rgb(200, 14, 14);
+  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -258,18 +329,19 @@ button[type="submit"]:hover {
 }
 
 .reset-btn:hover {
-  background: #38950a;
+  background: #c53030;
 }
 
 /* ============================================
    FOOTER
    ============================================ */
 .site-footer {
-  background: #4f6ea3;
+  background: var(--footer-bg);
   color: white;
   text-align: center;
   padding: 1.5rem 0;
   margin-top: 3rem;
+  transition: background-color 0.3s ease;
 }
 
 /* ============================================
@@ -288,7 +360,7 @@ button[type="submit"]:hover {
 }
 
 .modal-content {
-  background: white;
+  background: var(--bg-secondary);
   margin: 2% auto;
   padding: 2rem;
   border-radius: 8px;
@@ -297,22 +369,23 @@ button[type="submit"]:hover {
   max-height: 85vh;
   overflow-y: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
 }
 
 .close-button {
-  color: #718096;
+  color: var(--text-tertiary);
   float: right;
   font-size: 1.75rem;
   font-weight: bold;
   cursor: pointer;
   line-height: 1;
+  transition: color 0.3s ease;
 }
 
 .close-button:hover {
   color: #2c5282;
 }
 
-/* DateTime display in modals */
 .datetime {
   background: #328a0f;
   color: white;
@@ -323,7 +396,6 @@ button[type="submit"]:hover {
   font-weight: 600;
 }
 
-/* Modal header with title and settings button */
 .modal-header-actions {
   display: flex;
   justify-content: space-between;
@@ -334,6 +406,11 @@ button[type="submit"]:hover {
 .modal-header-actions h2 {
   margin: 0;
   color: #2c5282;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .modal-header-actions h2 {
+  color: #4fd1c5;
 }
 
 .gradient-text {
@@ -342,6 +419,11 @@ button[type="submit"]:hover {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .gradient-text {
+  color: #4fd1c5;
 }
 
 /* ============================================
@@ -350,11 +432,12 @@ button[type="submit"]:hover {
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-  color: #718096;
+  color: var(--text-tertiary);
   font-size: 1.1rem;
-  background: #f7fafc;
+  background: var(--bg-tertiary);
   border-radius: 6px;
-  border: 2px dashed #cbd5e0;
+  border: 2px dashed var(--border-color);
+  transition: all 0.3s ease;
 }
 
 /* ============================================
@@ -364,8 +447,9 @@ button[type="submit"]:hover {
 .project-form {
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: #f7fafc;
+  background: var(--bg-tertiary);
   border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .form-group {
@@ -376,7 +460,8 @@ button[type="submit"]:hover {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 
 .form-group input[type="text"],
@@ -384,10 +469,13 @@ button[type="submit"]:hover {
 .form-group input[type="file"] {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-color);
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
 }
 
 .form-group input[type="text"]:focus,
@@ -401,7 +489,6 @@ button[type="submit"]:hover {
   min-height: 150px;
 }
 
-/* Edit forms styling */
 .edit-form {
   padding: 1rem 0;
 }
@@ -414,17 +501,21 @@ button[type="submit"]:hover {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 
 .edit-form input[type="text"],
 .edit-form textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-color);
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
 }
 
 .edit-form input[type="text"]:focus,
@@ -443,12 +534,13 @@ button[type="submit"]:hover {
 
 .journal-entry,
 .project-entry {
-  background: white;
+  background: var(--bg-secondary);
   padding: 1.5rem;
   border-radius: 6px;
   margin-bottom: 1rem;
   border-left: 4px solid #2c5282;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.3s ease;
 }
 
 .journal-entry h3,
@@ -457,22 +549,29 @@ button[type="submit"]:hover {
   margin-bottom: 0.75rem;
   font-size: 1.25rem;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .journal-entry h3,
+body.dark-mode .project-entry h3 {
+  color: #4fd1c5;
 }
 
 .journal-entry p,
 .project-entry p {
-  color: #4a5568;
+  color: var(--text-secondary);
   margin-bottom: 0.75rem;
   line-height: 1.6;
+  transition: color 0.3s ease;
 }
 
 .journal-entry small,
 .project-entry small {
-  color: #718096;
+  color: var(--text-tertiary);
   font-size: 0.875rem;
+  transition: color 0.3s ease;
 }
 
-/* Files list for projects */
 .files-list {
   list-style: none;
   margin: 0.75rem 0;
@@ -480,22 +579,26 @@ button[type="submit"]:hover {
 }
 
 .files-list li {
-  background: #edf2f7;
+  background: var(--bg-accent);
   padding: 0.5rem 0.75rem;
   margin-bottom: 0.5rem;
   border-radius: 4px;
   border-left: 3px solid #2c5282;
   font-size: 0.875rem;
-  color: #4a5568;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
 }
 
-/* Added clickable file link styling */
 .file-link {
   color: #2c5282;
   text-decoration: none;
   font-weight: 600;
   display: inline-block;
   transition: color 0.2s;
+}
+
+body.dark-mode .file-link {
+  color: #4fd1c5;
 }
 
 .file-link:hover {
@@ -509,10 +612,11 @@ button[type="submit"]:hover {
 .about-content,
 .cv-content {
   padding: 1.5rem;
-  background: #f7fafc;
+  background: var(--bg-tertiary);
   border-radius: 6px;
   line-height: 1.8;
-  color: #4a5568;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
 }
 
 .cv-content h3 {
@@ -520,6 +624,11 @@ button[type="submit"]:hover {
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
   font-size: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .cv-content h3 {
+  color: #4fd1c5;
 }
 
 .cv-content h3:first-child {
@@ -530,23 +639,23 @@ button[type="submit"]:hover {
   margin-bottom: 1rem;
 }
 
-/* CV file display styling */
 .cv-file-display {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   padding: 1.5rem;
-  background: #edf2f7;
+  background: var(--bg-accent);
   border-radius: 6px;
   border-left: 4px solid #48bb78;
+  transition: background-color 0.3s ease;
 }
 
 .cv-file-display p {
   margin: 0 0 0.5rem 0;
-  color: #2d3748;
+  color: var(--text-secondary);
   font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
 
-/* Added prominent styling for View CV button */
 .cv-file-display #viewCvBtn {
   width: 100%;
   padding: 1rem;
@@ -563,10 +672,83 @@ button[type="submit"]:hover {
   background: #38a169;
 }
 
+/* Added YouTube section styling */
+.youtube-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.youtube-section h3 {
+  color: #2c5282;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .youtube-section h3 {
+  color: #4fd1c5;
+}
+
+.youtube-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.youtube-controls input {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.youtube-controls input:focus {
+  outline: none;
+  border-color: #2c5282;
+}
+
+#youtubePlayer {
+  margin: 1rem 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.video-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.control-btn {
+  background: #2c5282;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+  background: #2a4365;
+  transform: translateY(-2px);
+}
+
 /* ============================================
    MOBILE FLOATING ACTION BUTTON (FAB)
    ============================================ */
-/* Added floating action button for mobile to easily add journal/projects */
 .mobile-fab {
   display: none;
   position: fixed;
@@ -634,14 +816,20 @@ button[type="submit"]:hover {
     gap: 0.75rem;
   }
 
-  /* Show floating action button on mobile for easier access */
   .mobile-fab {
     display: flex;
   }
 
-  /* Hide desktop settings button on mobile since we have FAB */
   .settings-btn {
     display: none;
+  }
+
+  .youtube-controls {
+    flex-direction: column;
+  }
+
+  .youtube-controls input {
+    width: 100%;
   }
 }
 
@@ -662,7 +850,6 @@ button[type="submit"]:hover {
     font-size: 1.5rem;
   }
 
-  /* Adjust FAB size for smaller screens */
   .mobile-fab {
     width: 55px;
     height: 55px;
