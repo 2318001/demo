@@ -480,7 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 // REMOVE THESE DUPLICATE CLASSES FROM THE BOTTOM:
-/*
+
 class BrowserAPIsManager {
   constructor(storage) {
     this.storage = storage
@@ -527,4 +527,3 @@ class StorageManager {
     localStorage.removeItem(key)
   }
 }
-*/
