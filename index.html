@@ -4,138 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Journal PWA - Mobile Application Development</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="image/mario 111.png" type="image/png">
     <meta name="theme-color" content="#0ea5e9">
-    <script src="storage.js" defer></script>
-<script src="browser.js" defer></script>
-<script src="thirdparty.js" defer></script>
-<script src="script.js" defer></script>
 
-   
+    <!-- Correct script loading order -->
+    <script src="storage.js" defer></script>
+    <script src="browser.js" defer></script>
+    <script src="thirdparty.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <header>
         <div class="container">
-            <div class="logo">         
+            <div class="logo">
                 <span class="logo-text">WEL~COME~TO~MY~LEARNING~JOURNAL.</span>
             </div>
+
             <nav>
                 <ul class="nav-list">
                     <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="#" id="journalBtn">Journal</a></li>
-                    <li><a href="#" id="projectsBtn">Projects</a></li>
-                    <li><a href="#" id="aboutBtn">About</a></li>
-                    <li><a href="#" id="cvBtn">CV</a></li>
+                    <li><a href="#" id="journalBtn" data-open="journalModal">Journal</a></li>
+                    <li><a href="#" id="projectsBtn" data-open="projectsModal">Projects</a></li>
+                    <li><a href="#" id="aboutBtn" data-open="aboutModal">About</a></li>
+                    <li><a href="#" id="cvBtn" data-open="cvModal">CV</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <!-- Date and time banner on home page -->
+
+    <!-- DATETIME BANNER -->
     <div class="page-datetime-banner">
         <div class="container">
             <div id="pageDateTime" class="page-datetime"></div>
         </div>
     </div>
-    
+
+    <!-- HERO SECTION -->
     <main>
         <div class="container">
             <section class="first-section">
                 <div class="second-section">
                     <div class="third-section">
-                          <!-- Editable hero section with edit button -->
+
                         <div class="edit-section-header">
-                            <h1>
-                                <span id="heroName">Hi, I'm Rajan KC</span>
-                            </h1>
-                            <button class="edit-btn" id="editHeroBtn" title="Edit Introduction">Edit</button>
+                            <h1><span id="heroName">Hi, I'm Rajan KC</span></h1>
+                            <button class="edit-btn" id="editHeroBtn">Edit</button>
                         </div>
+
                         <p class="description" id="heroDescription">
-                            I am a passionate developer who enjoys building dynamic, user-friendly web applications. I study Computer Science at UCA and I like exploring the latest technologies to bring creative ideas to life.
+                            I am a passionate developer who enjoys building dynamic, user-friendly web applications.
+                            I study Computer Science at UCA and I explore the latest technologies to bring ideas to life.
                         </p>
                     </div>
+
                     <div class="hero-image">
-                        <img src="image/mario 111.png" alt="Profile image of Rajan" class="profile-image">
+                        <img src="image/mario 111.png" class="profile-image" alt="Profile image">
                     </div>
+
                 </div>
             </section>
         </div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2025 Rajan KC - Learning Journal</p>
         </div>
     </footer>
 
+
+    <!-- ⭐ HERO EDIT MODAL -->
     <div id="editHeroModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
+
             <h2 class="gradient-text">Edit Introduction</h2>
-            
+
             <form id="editHeroForm" class="edit-form">
                 <div class="form-group">
                     <label for="editHeroName">Name/Greeting:</label>
-                    <input type="text" id="editHeroName" required placeholder="Hi, I'm...">
+                    <input type="text" id="editHeroName" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="editHeroDesc">Description:</label>
-                    <textarea id="editHeroDesc" rows="5" required placeholder="Your introduction..."></textarea>
+                    <textarea id="editHeroDesc" rows="5" required></textarea>
                 </div>
-                
+
                 <button type="submit" class="cta-btn primary">Save Changes</button>
             </form>
         </div>
     </div>
- <!-- Journal Modal -->
+
+
+    <!-- ⭐ JOURNAL MODAL -->
     <div id="journalModal" class="modal">
         <div class="modal-content">
+
             <span class="close-button">&times;</span>
+
             <div id="journalDatetime" class="datetime"></div>
-            
+
             <div class="modal-header-actions">
                 <h2 class="gradient-text">My Journal</h2>
-                <div style="display: flex; gap: 0.5rem;"></div>
                 <div class="button-group">
-                    <button class="settings-btn" id="journalSettingsBtn" title="Add New Journal">+</button>
-                    <button class="reset-btn" id="resetJournalBtn" title="Reset All Journals">Reset++</button>
+                    <button class="settings-btn" id="journalSettingsBtn">+</button>
+                    <button class="reset-btn" id="resetJournalBtn">Reset++</button>
                 </div>
             </div>
-            
+
             <form id="journalForm" class="journal-form" style="display: none;">
+
                 <div class="form-group">
-                    <label for="journalTitle">Title: <span class="required">*</span></label>
-                    <input 
-                        type="text" 
-                        id="journalTitle" 
-                        name="journalTitle" 
-                        required 
-                        minlength="3"
-                        maxlength="100"
-                        placeholder="Enter your journal title (3-100 characters)..."
-                        aria-describedby="titleError">
+                    <label for="journalTitle">Title *</label>
+                    <input id="journalTitle" required minlength="3" maxlength="100"
+                           aria-describedby="titleError">
                     <span class="error-message" id="titleError"></span>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="journalContent">Reflection: <span class="required">*</span></label>
-                    <textarea 
-                        id="journalContent" 
-                        name="journalContent" 
-                        rows="10" 
-                        required 
-                        minlength="10"
-                        maxlength="5000"
-                        placeholder="Write your thoughts here (10-5000 characters)..."
-                        aria-describedby="contentError"></textarea>
+                    <label for="journalContent">Reflection *</label>
+                    <textarea id="journalContent" rows="10"
+                              required minlength="10" maxlength="5000"
+                              aria-describedby="contentError"></textarea>
+
                     <span class="error-message" id="contentError"></span>
+
                     <div class="character-count">
                         <span id="charCount">0</span> / 5000 characters
                     </div>
                 </div>
-                
-                <button type="submit" id="addButton" class="cta-btn primary">Submit Entry</button>
+
+                <button type="submit" class="cta-btn primary">Submit Entry</button>
             </form>
 
             <div id="journalEmptyState" class="empty-state">
@@ -146,54 +152,45 @@
         </div>
     </div>
 
+
+    <!-- ⭐ PROJECTS MODAL -->
     <div id="projectsModal" class="modal">
         <div class="modal-content">
+
             <span class="close-button">&times;</span>
+
             <div id="projectsDatetime" class="datetime"></div>
-            
+
             <div class="modal-header-actions">
                 <h2 class="gradient-text">My Projects</h2>
                 <div class="button-group">
-                    <button class="settings-btn" id="projectsSettingsBtn" title="Add New Project">+</button>
-                    <button class="reset-btn" id="resetProjectsBtn" title="Reset All Projects">Reset++</button>
+                    <button class="settings-btn" id="projectsSettingsBtn">+</button>
+                    <button class="reset-btn" id="resetProjectsBtn">Reset++</button>
                 </div>
             </div>
-            
-            <form id="projectForm" class="project-form" style="display: none;">
+
+            <form id="projectForm" style="display: none;">
                 <div class="form-group">
-                    <label for="projectTitle">Project Title: <span class="required">*</span></label>
-                    <input 
-                        type="text" 
-                        id="projectTitle" 
-                        name="projectTitle" 
-                        required 
-                        minlength="3"
-                        maxlength="100"
-                        placeholder="Enter project name (3-100 characters)..."
-                        aria-describedby="projectTitleError">
+                    <label for="projectTitle">Project Title *</label>
+                    <input id="projectTitle" required minlength="3" maxlength="100"
+                           aria-describedby="projectTitleError">
                     <span class="error-message" id="projectTitleError"></span>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="projectDescription">Project Description: <span class="required">*</span></label>
-                    <textarea 
-                        id="projectDescription" 
-                        name="projectDescription" 
-                        rows="5" 
-                        required 
-                        minlength="10"
-                        maxlength="2000"
-                        placeholder="Describe your project (10-2000 characters)..."
-                        aria-describedby="projectDescError"></textarea>
+                    <label for="projectDescription">Project Description *</label>
+                    <textarea id="projectDescription" rows="5"
+                              required minlength="10" maxlength="2000"
+                              aria-describedby="projectDescError"></textarea>
                     <span class="error-message" id="projectDescError"></span>
                 </div>
 
                 <div class="form-group">
                     <label for="projectFiles">Project Images:</label>
-                    <input type="file" id="projectFiles" name="projectFiles" accept="image/*,video/*" multiple>
+                    <input id="projectFiles" type="file" accept="image/*,video/*" multiple>
                 </div>
-                
-                <button type="submit" id="addProjectButton" class="cta-btn primary">Submit Project</button>
+
+                <button type="submit" class="cta-btn primary">Submit Project</button>
             </form>
 
             <div id="projectsEmptyState" class="empty-state">
@@ -201,120 +198,131 @@
             </div>
 
             <div id="projectsList" class="projects-list"></div>
+
         </div>
     </div>
 
-    <!-- Added upload button and file input for About section -->
+
+    <!-- ⭐ ABOUT MODAL -->
     <div id="aboutModal" class="modal">
         <div class="modal-content">
+
             <span class="close-button">&times;</span>
+
             <div id="aboutDatetime" class="datetime"></div>
-            
+
             <div class="modal-header-actions">
                 <h2 class="gradient-text">About Me</h2>
                 <div class="button-group">
-                    <button class="edit-btn" id="editAboutBtn" title="Edit About">Edit</button>
-                    <button class="upload-btn" id="uploadAboutBtn" title="Upload About">Upload from Device</button>
+                    <button class="edit-btn" id="editAboutBtn">Edit</button>
+                    <button class="upload-btn" id="uploadAboutBtn">Upload from Device</button>
                 </div>
-            </div>
-            
-            <input type="file" id="aboutFileInput" accept=".txt,.doc,.docx" style="display: none;">
-            
-            <div id="aboutContent" class="about-content">
-                <p>I am a passionate developer who loves creating innovative solutions and learning new technologies. My journey in software development has been exciting and full of growth.</p>
             </div>
 
+            <input type="file" id="aboutFileInput" accept=".txt,.doc,.docx" style="display:none">
+
+            <div id="aboutContent" class="about-content">
+                <p>I am a passionate developer...</p>
+            </div>
+
+            <!-- YouTube Section -->
             <div class="youtube-section">
                 <h3>Featured Video</h3>
+
                 <div class="youtube-controls">
-                    <input 
-                        type="text" 
-                        id="youtubeVideoId" 
-                        placeholder="Enter YouTube Video ID (e.g., dQw4w9WgXcQ)"
-                        pattern="[a-zA-Z0-9_-]{11}"
-                        title="YouTube Video ID must be 11 characters"
-                    />
+                    <input type="text" id="youtubeVideoId"
+                           placeholder="Enter YouTube Video ID"
+                           pattern="[a-zA-Z0-9_-]{11}">
                     <button id="loadVideoBtn" class="cta-btn primary">Load Video</button>
                 </div>
+
                 <div id="youtubePlayer"></div>
-                <div class="video-controls" id="videoControls" style="display: none;">
-                    <button id="playBtn" class="control-btn">▶️ Play</button>
-                    <button id="pauseBtn" class="control-btn">⏸️ Pause</button>
-                    <button id="stopBtn" class="control-btn">⏹️ Stop</button>
-                    <button id="muteBtn" class="control-btn">🔇 Mute</button>
-                    <button id="unmuteBtn" class="control-btn">🔊 Unmute</button>
-                    <button id="fullscreenBtn" class="control-btn">⛶ Fullscreen</button>
+
+                <div id="videoControls" class="video-controls" style="display:none">
+                    <button id="playBtn">▶️</button>
+                    <button id="pauseBtn">⏸️</button>
+                    <button id="stopBtn">⏹️</button>
+                    <button id="muteBtn">🔇</button>
+                    <button id="unmuteBtn">🔊</button>
+                    <button id="fullscreenBtn">⛶</button>
                 </div>
-                <div id="videoStatus" class="video-status"></div>
+
+                <div id="videoStatus"></div>
             </div>
+
         </div>
     </div>
 
+
+    <!-- ⭐ CV MODAL -->
     <div id="cvModal" class="modal">
         <div class="modal-content">
+
             <span class="close-button">&times;</span>
+
             <div id="cvDatetime" class="datetime"></div>
-            
+
             <div class="modal-header-actions">
                 <h2 class="gradient-text">My CV</h2>
+
                 <div class="cv-actions">
-                    <button class="edit-btn" id="editCvBtn" title="Edit CV">Edit</button>
-                    <button class="upload-btn" id="uploadCvBtn" title="Upload CV">Upload from Device</button>
+                    <button id="editCvBtn" class="edit-btn">Edit</button>
+                    <button id="uploadCvBtn" class="upload-btn">Upload File</button>
                 </div>
             </div>
-            
-            <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" style="display: none;">
-            
-            <div id="cvFileDisplay" class="cv-file-display" style="display: none;">
-                <p><strong>Uploaded CV:</strong> <span id="cvFileName"></span></p>
-                <button id="viewCvBtn" class="cta-btn primary" style="margin-top: 10px;">View Uploaded CV</button>
+
+            <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" style="display:none">
+
+            <div id="cvFileDisplay" style="display:none">
+                <p><strong>Uploaded:</strong> <span id="cvFileName"></span></p>
+                <button id="viewCvBtn" class="cta-btn primary">View CV</button>
             </div>
-            
-            <div id="cvContent" class="cv-content">
+
+            <div id="cvContent">
                 <h3>Education</h3>
-                <p>Computer Science - University for creative arts</p>
-                
+                <p>Computer Science - University for Creative Arts</p>
+
                 <h3>Skills</h3>
-                <p> HTML, CSS,Javascript, AI, Python, Git</p>
-                
+                <p>HTML, CSS, JavaScript, AI, Python, Git</p>
+
                 <h3>Experience</h3>
                 <p>Add your work experience here...</p>
             </div>
+
         </div>
     </div>
 
+
+    <!-- ⭐ ABOUT EDIT MODAL -->
     <div id="editAboutModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
+
             <h2 class="gradient-text">Edit About</h2>
-            
-            <form id="editAboutForm" class="edit-form">
-                <div class="form-group">
-                    <label for="editAboutText">About Introduction:</label>
-                    <textarea id="editAboutText" rows="8" required placeholder="Write about yourself..."></textarea>
-                </div>
-                
-                <button type="submit" class="cta-btn primary">Save Changes</button>
+
+            <form id="editAboutForm">
+                <textarea id="editAboutText" rows="8" required></textarea>
+                <button class="cta-btn primary">Save</button>
             </form>
         </div>
     </div>
 
+
+    <!-- ⭐ CV EDIT MODAL -->
     <div id="editCvModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
+
             <h2 class="gradient-text">Edit CV</h2>
-            
-            <form id="editCvForm" class="edit-form">
-                <div class="form-group">
-                    <label for="editCvText">CV Content:</label>
-                    <textarea id="editCvText" rows="15" required placeholder="Enter your CV details..."></textarea>
-                </div>
-                
-                <button type="submit" class="cta-btn primary">Save Changes</button>
+
+            <form id="editCvForm">
+                <textarea id="editCvText" rows="15" required></textarea>
+                <button class="cta-btn primary">Save</button>
             </form>
         </div>
     </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
+
 </body>
 </html>
