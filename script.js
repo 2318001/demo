@@ -265,11 +265,11 @@ class ProjectsManager {
       this.projectForm.reset()
       if (this.projectForm) this.projectForm.style.display = "none"
 
+      this.resetFileInput()
+
       const localProjects = this.storage.getLocal("projects") || []
       localProjects.unshift(project)
       this.storage.setLocal("projects", localProjects)
-
-      this.resetFileInput()
 
       await this.loadProjects()
     } catch (error) {
@@ -327,6 +327,7 @@ class ProjectsManager {
                 <small>${project.dateString}</small>
               </div>
               <p>${this.escapeHtml(project.description)}</p>
+              ${project.fileName ? `<p class="project-file"><strong>File:</strong> ${this.escapeHtml(project.fileName)} (${this.formatFileSize(project.fileSize)})</p>` : ""}
             </div>
           `,
           )
@@ -336,6 +337,7 @@ class ProjectsManager {
       console.error("Error loading projects:", error)
     }
   }
+
   // ADDED: Method to format file size
   formatFileSize(bytes) {
     if (bytes === 0) return "0 Bytes"
@@ -452,6 +454,7 @@ function setupModalSystem(managers = {}) {
 
     button.addEventListener("click", (e) => {
       e.preventDefault()
+      e.stopPropagation()
       if (
         modalId === "journalModal" &&
         managers.journalManager &&
