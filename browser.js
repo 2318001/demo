@@ -1,4 +1,4 @@
-// Browser APIs Manager - Handles Geolocation, Notifications, and Clipboard APIs
+// Browser APIs Manager - Handles Form Validation
 class BrowserAPIsManager {
   constructor(storage) {
     this.storage = storage

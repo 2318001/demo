@@ -25,7 +25,8 @@
                 <span class="logo-text">WEL~COME~TO~MY~LEARNING~JOURNAL.</span>
             </div>
 
-            <nav>
+            <!-- Wrapped navigation in box design container -->
+            <nav class="nav-box">
                 <ul class="nav-list">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="#" id="journalBtn" data-open="journalModal">Journal</a></li>
@@ -62,8 +63,13 @@
                         </p>
                     </div>
 
+                    <!-- Added editable profile picture with camera button -->
                     <div class="hero-image">
-                        <img src="image/mario 111.png" class="profile-image" alt="Profile image">
+                        <div class="profile-image-container">
+                            <img src="image/mario 111.png" class="profile-image" alt="Profile image" id="profileImage">
+                            <button class="edit-profile-pic-btn" id="editProfilePicBtn" title="Edit profile picture">📷</button>
+                            <input type="file" id="profilePicInput" accept="image/*" style="display:none;">
+                        </div>
                     </div>
 
                 </div>
@@ -88,13 +94,13 @@
 
             <form id="editHeroForm" class="edit-form">
                 <div class="form-group">
-                    <label for="editHeroName">Name/Greeting:</label>
-                    <input type="text" id="editHeroName" required>
+                    <label for="editHeroName">Name/Greeting <span class="required">*</span></label>
+                    <input type="text" id="editHeroName" required minlength="2" maxlength="100">
                 </div>
 
                 <div class="form-group">
-                    <label for="editHeroDesc">Description:</label>
-                    <textarea id="editHeroDesc" rows="5" required></textarea>
+                    <label for="editHeroDesc">Description <span class="required">*</span></label>
+                    <textarea id="editHeroDesc" rows="5" required minlength="10" maxlength="500"></textarea>
                 </div>
 
                 <button type="submit" class="cta-btn primary">Save Changes</button>
@@ -122,14 +128,14 @@
             <form id="journalForm" class="journal-form" style="display: none;">
 
                 <div class="form-group">
-                    <label for="journalTitle">Title *</label>
-                    <input id="journalTitle" required minlength="3" maxlength="100"
+                    <label for="journalTitle">Title <span class="required">*</span></label>
+                    <input id="journalTitle" type="text" required minlength="3" maxlength="100"
                            aria-describedby="titleError">
                     <span class="error-message" id="titleError"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="journalContent">Reflection *</label>
+                    <label for="journalContent">Reflection <span class="required">*</span></label>
                     <textarea id="journalContent" rows="10"
                               required minlength="10" maxlength="5000"
                               aria-describedby="contentError"></textarea>
@@ -169,25 +175,20 @@
                 </div>
             </div>
 
-            <form id="projectForm" style="display: none;">
+            <form id="projectForm" class="project-form" style="display: none;">
                 <div class="form-group">
-                    <label for="projectTitle">Project Title *</label>
-                    <input id="projectTitle" required minlength="3" maxlength="100"
+                    <label for="projectTitle">Project Title <span class="required">*</span></label>
+                    <input id="projectTitle" type="text" required minlength="3" maxlength="100"
                            aria-describedby="projectTitleError">
                     <span class="error-message" id="projectTitleError"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="projectDescription">Project Description *</label>
+                    <label for="projectDescription">Project Description <span class="required">*</span></label>
                     <textarea id="projectDescription" rows="5"
                               required minlength="10" maxlength="2000"
                               aria-describedby="projectDescError"></textarea>
                     <span class="error-message" id="projectDescError"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="projectFiles">Project Images:</label>
-                    <input id="projectFiles" type="file" accept="image/*,video/*" multiple>
                 </div>
 
                 <button type="submit" class="cta-btn primary">Submit Project</button>
@@ -215,7 +216,7 @@
                 <h2 class="gradient-text">About Me</h2>
                 <div class="button-group">
                     <button class="edit-btn" id="editAboutBtn">Edit</button>
-                    <button class="upload-btn" id="uploadAboutBtn">Upload from Device</button>
+                    <button class="upload-btn" id="uploadAboutBtn">Upload</button>
                 </div>
             </div>
 
@@ -225,29 +226,28 @@
                 <p>I am a passionate developer...</p>
             </div>
 
-            <!-- YouTube Section -->
+            <!-- YouTube section - removed 11 character restriction, accepts any URL or ID -->
             <div class="youtube-section">
                 <h3>Featured Video</h3>
 
                 <div class="youtube-controls">
                     <input type="text" id="youtubeVideoId"
-                           placeholder="Enter YouTube Video ID"
-                           pattern="[a-zA-Z0-9_-]{11}" -->
+                           placeholder="Enter YouTube Video ID or URL (any format)">
                     <button id="loadVideoBtn" class="cta-btn primary">Load Video</button>
                 </div>
 
                 <div id="youtubePlayer"></div>
 
                 <div id="videoControls" class="video-controls" style="display:none">
-                    <button id="playBtn">▶️</button>
-                    <button id="pauseBtn">⏸️</button>
-                    <button id="stopBtn">⏹️</button>
-                    <button id="muteBtn">🔇</button>
-                    <button id="unmuteBtn">🔊</button>
-                    <button id="fullscreenBtn">⛶</button>
+                    <button id="playBtn" class="control-btn">▶️ Play</button>
+                    <button id="pauseBtn" class="control-btn">⏸️ Pause</button>
+                    <button id="stopBtn" class="control-btn">⏹️ Stop</button>
+                    <button id="muteBtn" class="control-btn">🔇 Mute</button>
+                    <button id="unmuteBtn" class="control-btn">🔊 Unmute</button>
+                    <button id="fullscreenBtn" class="control-btn">⛶ Fullscreen</button>
                 </div>
 
-                <div id="videoStatus"></div>
+                <div id="videoStatus" class="video-status"></div>
             </div>
 
         </div>
@@ -273,12 +273,13 @@
 
             <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" style="display:none">
 
-            <div id="cvFileDisplay" style="display:none">
+            <div id="cvFileDisplay" class="cv-file-display" style="display:none">
                 <p><strong>Uploaded:</strong> <span id="cvFileName"></span></p>
                 <button id="viewCvBtn" class="cta-btn primary">View CV</button>
             </div>
 
-            <div id="cvContent">
+            <!-- CV content with improved styling box -->
+            <div id="cvContent" class="cv-content">
                 <h3>Education</h3>
                 <p>Computer Science - University for Creative Arts</p>
 
@@ -301,8 +302,11 @@
             <h2 class="gradient-text">Edit About</h2>
 
             <form id="editAboutForm">
-                <textarea id="editAboutText" rows="8" required></textarea>
-                <button class="cta-btn primary">Save</button>
+                <div class="form-group">
+                    <label for="editAboutText">About Content <span class="required">*</span></label>
+                    <textarea id="editAboutText" rows="8" required minlength="10" maxlength="2000"></textarea>
+                </div>
+                <button type="submit" class="cta-btn primary">Save</button>
             </form>
         </div>
     </div>
@@ -316,8 +320,11 @@
             <h2 class="gradient-text">Edit CV</h2>
 
             <form id="editCvForm">
-                <textarea id="editCvText" rows="15" required></textarea>
-                <button class="cta-btn primary">Save</button>
+                <div class="form-group">
+                    <label for="editCvText">CV Content <span class="required">*</span></label>
+                    <textarea id="editCvText" rows="15" required minlength="10" maxlength="5000"></textarea>
+                </div>
+                <button type="submit" class="cta-btn primary">Save</button>
             </form>
         </div>
     </div>

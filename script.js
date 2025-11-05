@@ -1,11 +1,4 @@
-/* ===== cleaned script.js =====
-  - Single modal system (setupModalSystem)
-  - Managers keep form/DB logic but DO NOT bind nav open clicks themselves
-  - This file MUST be loaded after storage.js, browser.js, thirdparty.js
-*/
-
-// -------------------- Managers --------------------
-
+// Journal Manager - Handles journal entries with form validation
 class JournalManager {
   constructor(storage, browserAPIs) {
     this.storage = storage
@@ -25,7 +18,6 @@ class JournalManager {
   async init() {
     await this.loadJournals()
 
-    // NOTE: we do NOT attach click to journalBtn here (global modal system does)
     if (this.journalSettingsBtn) {
       this.journalSettingsBtn.addEventListener("click", () => this.toggleForm())
     }
@@ -45,7 +37,6 @@ class JournalManager {
     if (this.journalModal) {
       this.journalModal.style.display = "block"
       updateDateTime("journalDatetime")
-      // Hide the form initially if there are no entries or we want default collapsed
       if (this.journalForm) this.journalForm.style.display = "none"
     }
   }
@@ -54,7 +45,6 @@ class JournalManager {
     if (this.journalForm) {
       const isHidden = this.journalForm.style.display === "none"
       this.journalForm.style.display = isHidden ? "block" : "none"
-      // Hide empty state when form is shown
       if (isHidden && this.journalEmptyState) {
         this.journalEmptyState.style.display = "none"
       } else {
@@ -87,7 +77,6 @@ class JournalManager {
       if (this.storage && typeof this.storage.addToIndexedDB === "function") {
         await this.storage.addToIndexedDB("journals", entry)
       }
-      // keep a local copy as well (non-essential)
       const localJournals = this.storage.getLocal("journals") || []
       localJournals.unshift(entry)
       this.storage.setLocal("journals", localJournals)
@@ -127,9 +116,11 @@ class JournalManager {
           .map(
             (entry) => `
             <div class="journal-entry">
-              <h3>${this.escapeHtml(entry.title)}</h3>
+              <div class="entry-header">
+                <h3>${this.escapeHtml(entry.title)}</h3>
+                <small>${entry.dateString}</small>
+              </div>
               <p>${this.escapeHtml(entry.content)}</p>
-              <small>Created: ${entry.dateString}</small>
             </div>
           `,
           )
@@ -161,6 +152,7 @@ class JournalManager {
   }
 }
 
+// Projects Manager - Handles project entries with form validation
 class ProjectsManager {
   constructor(storage, browserAPIs) {
     this.storage = storage
@@ -179,7 +171,6 @@ class ProjectsManager {
   async init() {
     await this.loadProjects()
 
-    // DO NOT attach click to projectsBtn here (global modal system does)
     if (this.projectsSettingsBtn) {
       this.projectsSettingsBtn.addEventListener("click", () => this.toggleForm())
     }
@@ -238,7 +229,6 @@ class ProjectsManager {
       this.projectForm.reset()
       if (this.projectForm) this.projectForm.style.display = "none"
 
-      // Maintain local copy
       const localProjects = this.storage.getLocal("projects") || []
       localProjects.unshift(project)
       this.storage.setLocal("projects", localProjects)
@@ -274,9 +264,11 @@ class ProjectsManager {
           .map(
             (project) => `
             <div class="project-card">
-              <h3>${this.escapeHtml(project.title)}</h3>
+              <div class="project-header">
+                <h3>${this.escapeHtml(project.title)}</h3>
+                <small>${project.dateString}</small>
+              </div>
               <p>${this.escapeHtml(project.description)}</p>
-              <small>Created: ${project.dateString}</small>
             </div>
           `,
           )
@@ -308,8 +300,7 @@ class ProjectsManager {
   }
 }
 
-// -------------------- Utility: Date/time --------------------
-
+// Utility: Date/time update
 function updateDateTime(elementId) {
   const element = document.getElementById(elementId)
   if (element) {
@@ -331,16 +322,7 @@ function startPageDateTime() {
   setInterval(() => updateDateTime("pageDateTime"), 1000)
 }
 
-// -------------------- Single global modal system --------------------
-
-/*
-  - Handles:
-    * close-button elements
-    * click outside modal to close
-    * openers by data-open="modalId"
-    * fallback for nav ids: journalBtn/projectsBtn/aboutBtn/cvBtn
-    * when opening, it will call manager.openModal() if provided (keeps managers in control of their internal state)
-*/
+// Modal system setup
 function setupModalSystem(managers = {}) {
   const modals = document.querySelectorAll(".modal")
 
@@ -369,21 +351,27 @@ function setupModalSystem(managers = {}) {
 
     el.addEventListener("click", (e) => {
       e.preventDefault()
-      // If a manager is provided for this modal (journal/projects), prefer calling its openModal()
-      if (modalId === "journalModal" && managers.journalManager && typeof managers.journalManager.openModal === "function") {
+      if (
+        modalId === "journalModal" &&
+        managers.journalManager &&
+        typeof managers.journalManager.openModal === "function"
+      ) {
         managers.journalManager.openModal()
-      } else if (modalId === "projectsModal" && managers.projectsManager && typeof managers.projectsManager.openModal === "function") {
+      } else if (
+        modalId === "projectsModal" &&
+        managers.projectsManager &&
+        typeof managers.projectsManager.openModal === "function"
+      ) {
         managers.projectsManager.openModal()
       } else {
         modal.style.display = "block"
-        // update associated datetime if present
         const dtId = modalId.replace("Modal", "Datetime")
         updateDateTime(dtId)
       }
     })
   })
 
-  // Fallback: support the existing nav ids without changing HTML
+  // Fallback: support nav ids
   const navMap = {
     journalBtn: "journalModal",
     projectsBtn: "projectsModal",
@@ -398,9 +386,17 @@ function setupModalSystem(managers = {}) {
 
     button.addEventListener("click", (e) => {
       e.preventDefault()
-      if (modalId === "journalModal" && managers.journalManager && typeof managers.journalManager.openModal === "function") {
+      if (
+        modalId === "journalModal" &&
+        managers.journalManager &&
+        typeof managers.journalManager.openModal === "function"
+      ) {
         managers.journalManager.openModal()
-      } else if (modalId === "projectsModal" && managers.projectsManager && typeof managers.projectsManager.openModal === "function") {
+      } else if (
+        modalId === "projectsModal" &&
+        managers.projectsManager &&
+        typeof managers.projectsManager.openModal === "function"
+      ) {
         managers.projectsManager.openModal()
       } else {
         modal.style.display = "block"
@@ -410,10 +406,40 @@ function setupModalSystem(managers = {}) {
   })
 }
 
-// -------------------- initializeOtherModals (About/CV/Hero/YT) --------------------
-
+// Initialize other modals (About, CV, Hero, Profile Picture)
 function initializeOtherModals(storage) {
-  // About
+  const editProfilePicBtn = document.getElementById("editProfilePicBtn")
+  const profilePicInput = document.getElementById("profilePicInput")
+  const profileImage = document.getElementById("profileImage")
+
+  if (editProfilePicBtn && profilePicInput && profileImage) {
+    editProfilePicBtn.addEventListener("click", () => {
+      profilePicInput.click()
+    })
+
+    profilePicInput.addEventListener("change", (e) => {
+      const file = e.target.files[0]
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          profileImage.src = event.target.result
+          storage.setLocal("profilePicture", event.target.result)
+          console.log("[v0] Profile picture updated")
+        }
+        reader.readAsDataURL(file)
+      } else {
+        alert("Please select a valid image file")
+      }
+    })
+
+    // Load saved profile picture
+    const savedProfilePic = storage.getLocal("profilePicture")
+    if (savedProfilePic) {
+      profileImage.src = savedProfilePic
+    }
+  }
+
+  // About section
   const editAboutBtn = document.getElementById("editAboutBtn")
   const uploadAboutBtn = document.getElementById("uploadAboutBtn")
   const aboutFileInput = document.getElementById("aboutFileInput")
@@ -461,7 +487,6 @@ function initializeOtherModals(storage) {
   const savedAbout = storage.getLocal("aboutContent")
   if (savedAbout && aboutContent) aboutContent.textContent = savedAbout
 
-  // CV
   const editCvBtn = document.getElementById("editCvBtn")
   const editCvModal = document.getElementById("editCvModal")
   const editCvForm = document.getElementById("editCvForm")
@@ -536,7 +561,7 @@ function initializeOtherModals(storage) {
     if (cvFileDisplay) cvFileDisplay.style.display = "block"
   }
 
-  // Hero section edits
+  // Hero section
   const editHeroBtn = document.getElementById("editHeroBtn")
   const editHeroModal = document.getElementById("editHeroModal")
   const editHeroForm = document.getElementById("editHeroForm")
@@ -584,22 +609,21 @@ function initializeOtherModals(storage) {
   if (savedDesc && heroDesc) heroDesc.textContent = savedDesc
 }
 
-// -------------------- DOMContentLoaded: bootstrapping --------------------
-
+// DOMContentLoaded: Initialize everything
 document.addEventListener("DOMContentLoaded", () => {
-  // Expect StorageManager, BrowserAPIsManager, YouTubeManager to be provided by other JS files
+  // Check for required classes
   if (typeof StorageManager === "undefined") {
     console.error("StorageManager not found. Make sure storage.js is loaded before script.js")
     return
   }
-  if (typeof BrowserAPIsManager === "undefined") {
+  if (typeof window.BrowserAPIsManager === "undefined") {
     console.error("BrowserAPIsManager not found. Make sure browser.js is loaded before script.js")
     return
   }
 
   const storage = new StorageManager()
-  const browserAPIs = new BrowserAPIsManager(storage)
-  const youtubeManager = (typeof YouTubeManager !== "undefined") ? new YouTubeManager(storage) : null
+  const browserAPIs = new window.BrowserAPIsManager(storage)
+  const youtubeManager = typeof window.YouTubeManager !== "undefined" ? new window.YouTubeManager(storage) : null
   const journalManager = new JournalManager(storage, browserAPIs)
   const projectsManager = new ProjectsManager(storage, browserAPIs)
 
@@ -608,11 +632,10 @@ document.addEventListener("DOMContentLoaded", () => {
     journalManager.setValidationManager(browserAPIs)
   }
 
-  // Start clocks and modals
+  // Start everything
   startPageDateTime()
-  // Single modal system: pass managers so it can call their openModal() when appropriate
   setupModalSystem({ journalManager, projectsManager })
   initializeOtherModals(storage)
 
-  console.log("Clean script.js initialized")
+  console.log("[v0] Learning Journal initialized successfully")
 })

@@ -11,7 +11,7 @@ class YouTubeManager {
     // Wait for YouTube API to be ready
     window.onYouTubeIframeAPIReady = () => {
       this.isAPIReady = true
-      console.log(" YouTube API is ready")
+      console.log("[v0] YouTube API is ready")
     }
 
     // Set up event listeners
@@ -39,36 +39,63 @@ class YouTubeManager {
     }
   }
 
+  extractVideoId(input) {
+    if (!input) return null
+
+    input = input.trim()
+
+    // If it's already a valid YouTube ID (11+ characters)
+    if (/^[a-zA-Z0-9_-]{11,}$/.test(input)) {
+      return input
+    }
+
+    // Extract from full YouTube URL: https://www.youtube.com/watch?v=VIDEO_ID
+    const urlMatch = input.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/)
+    if (urlMatch) {
+      return urlMatch[1]
+    }
+
+    // Extract from short URL: https://youtu.be/VIDEO_ID
+    const shortMatch = input.match(/youtu\.be\/([a-zA-Z0-9_-]+)/)
+    if (shortMatch) {
+      return shortMatch[1]
+    }
+
+    // If none match, try as direct ID even if not 11 chars
+    if (input.length > 0) {
+      return input
+    }
+
+    return null
+  }
+
   loadVideo() {
     const videoInput = document.getElementById("youtubeVideoId")
     const videoStatus = document.getElementById("videoStatus")
 
     if (!videoInput || !videoStatus) return
 
-    const videoId = videoInput.value.trim()
+    const videoId = this.extractVideoId(videoInput.value)
 
     if (!videoId) {
-      alert("Please enter a YouTube Video ID")
-      return
-    }
-
-    // Validate video ID format (11 characters)
-    if (videoId.length !== 11) {
-      alert("Invalid YouTube Video ID. It should be 11 characters long.")
+      videoStatus.textContent = "❌ Please enter a valid YouTube Video ID or URL"
+      videoStatus.style.color = "#e53e3e"
       return
     }
 
     // Save video ID to localStorage
-    this.storage.setLocal("youtubeVideoId", videoId)
+    this.storage.setLocal("youtubeVideoId", videoInput.value)
 
     // Create or update player
     if (this.player) {
       this.player.loadVideoById(videoId)
-      videoStatus.textContent = "Video loaded successfully!"
+      videoStatus.textContent = "✅ Video loaded successfully!"
+      videoStatus.style.color = "#48bb78"
     } else {
       const YT = window.YT
       if (!YT) {
-        alert("YouTube API is not loaded yet. Please try again in a moment.")
+        videoStatus.textContent = "⏳ YouTube API is loading... Please try again in a moment."
+        videoStatus.style.color = "#f6ad55"
         return
       }
 
@@ -84,14 +111,16 @@ class YouTubeManager {
             console.log("[v0] YouTube player is ready")
             const controls = document.getElementById("videoControls")
             if (controls) controls.style.display = "flex"
-            videoStatus.textContent = "Video loaded and ready to play!"
+            videoStatus.textContent = "✅ Video loaded and ready to play!"
+            videoStatus.style.color = "#48bb78"
           },
           onStateChange: (event) => {
             this.handleStateChange(event)
           },
           onError: (event) => {
             console.error("YouTube player error:", event.data)
-            videoStatus.textContent = "Error loading video. Please check the video ID."
+            videoStatus.textContent = "❌ Error loading video. Please check the video ID or URL."
+            videoStatus.style.color = "#e53e3e"
           },
         },
       })
@@ -113,7 +142,6 @@ class YouTubeManager {
 
     const stateName = states[event.data] || "Unknown"
     videoStatus.textContent = `Status: ${stateName}`
-    console.log("[v0] Player state changed:", stateName)
   }
 
   playVideo() {
