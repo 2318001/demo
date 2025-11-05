@@ -327,6 +327,22 @@ class ProjectsManager {
                 <small>${project.dateString}</small>
               </div>
               <p>${this.escapeHtml(project.description)}</p>
+              <!-- ADDED: Added file display section to show uploaded files -->
+              ${
+                project.fileName
+                  ? `
+                <div class="project-file">
+                  <strong>File:</strong> ${this.escapeHtml(project.fileName)}
+                  ${project.fileSize ? `<br><small>Size: ${this.formatFileSize(project.fileSize)}</small>` : ""}
+                  ${
+                    project.fileData
+                      ? `<a href="${project.fileData}" download="${project.fileName}" class="file-download">Download</a>`
+                      : ""
+                  }
+                </div>
+              `
+                  : ""
+              }
             </div>
           `,
           )
@@ -452,6 +468,7 @@ function setupModalSystem(managers = {}) {
 
     button.addEventListener("click", (e) => {
       e.preventDefault()
+      e.stopPropagation()
       if (
         modalId === "journalModal" &&
         managers.journalManager &&
