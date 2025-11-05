@@ -320,21 +320,25 @@ class ProjectsManager {
       if (this.projectsList) {
         this.projectsList.innerHTML = projects
           .map(
-            (project, index) => `
+            (project) => `
             <div class="project-card">
               <div class="project-header">
                 <h3>${this.escapeHtml(project.title)}</h3>
                 <small>${project.dateString}</small>
               </div>
               <p>${this.escapeHtml(project.description)}</p>
-              <!-- Store entire project object as data attribute instead of just index -->
+              <!-- ADDED: Added file display section to show uploaded files -->
               ${
                 project.fileName
                   ? `
                 <div class="project-file">
                   <strong>File:</strong> ${this.escapeHtml(project.fileName)}
                   ${project.fileSize ? `<br><small>Size: ${this.formatFileSize(project.fileSize)}</small>` : ""}
-                  <button class="download-btn" data-project-json='${JSON.stringify(project)}'>Download</button>
+                  ${
+                    project.fileData
+                      ? `<a href="${project.fileData}" download="${project.fileName}" class="file-download">Download</a>`
+                      : ""
+                  }
                 </div>
               `
                   : ""
@@ -343,41 +347,11 @@ class ProjectsManager {
           `,
           )
           .join("")
-
-        document.querySelectorAll(".download-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            e.preventDefault()
-            const projectJson = btn.getAttribute("data-project-json")
-            const project = JSON.parse(projectJson)
-            this.downloadProjectFile(project)
-          })
-        })
       }
     } catch (error) {
       console.error("Error loading projects:", error)
     }
   }
-
-  downloadProjectFile(project) {
-    if (!project || !project.fileData || !project.fileName) {
-      alert("File data not found. Please try again.")
-      return
-    }
-
-    try {
-      const link = document.createElement("a")
-      link.href = project.fileData
-      link.download = project.fileName
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      console.log("[v0] File downloaded:", project.fileName)
-    } catch (error) {
-      console.error("Error downloading file:", error)
-      alert("Error downloading file. Please try again.")
-    }
-  }
-
   // ADDED: Method to format file size
   formatFileSize(bytes) {
     if (bytes === 0) return "0 Bytes"
