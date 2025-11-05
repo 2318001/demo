@@ -54,7 +54,7 @@ class YouTubeManager {
 
     // Check if it's already a video ID (11 characters with alphanumeric, dash, underscore)
     if (/^[a-zA-Z0-9_-]+$/.test(input)) {
-      console.log("[v0] Detected as video ID:", input)
+      console.log("Detected as video ID:", input)
       return input
     }
 
@@ -99,7 +99,7 @@ class YouTubeManager {
     if (!videoId) {
       videoStatus.textContent = " Please enter a valid YouTube Video ID or URL"
       videoStatus.style.color = "#e53e3e"
-      console.error("[v0] Invalid video ID or URL")
+      console.error("Invalid video ID or URL")
       return
     }
 

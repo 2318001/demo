@@ -482,12 +482,12 @@ function initializeOtherModals(storage) {
   const profileImage = document.getElementById("profileImage")
 
   if (editProfilePicBtn && profilePicInput && profileImage) {
-    console.log("[v0] Profile pic button found, attaching click handler")
+    console.log("Profile pic button found, attaching click handler")
 
     editProfilePicBtn.addEventListener("click", (e) => {
       e.preventDefault()
       e.stopPropagation()
-      console.log("[v0] Profile pic button clicked, triggering file input")
+      console.log("Profile pic button clicked, triggering file input")
       profilePicInput.click()
     })
 
@@ -498,7 +498,7 @@ function initializeOtherModals(storage) {
         reader.onload = (event) => {
           profileImage.src = event.target.result
           storage.setLocal("profilePicture", event.target.result)
-          console.log("[v0] Profile picture updated")
+          console.log("Profile picture updated")
         }
         reader.readAsDataURL(file)
       } else {
@@ -509,10 +509,10 @@ function initializeOtherModals(storage) {
     const savedProfilePic = storage.getLocal("profilePicture")
     if (savedProfilePic) {
       profileImage.src = savedProfilePic
-      console.log("[v0] Profile picture loaded from storage")
+      console.log("Profile picture loaded from storage")
     }
   } else {
-    console.error("[v0] Profile picture elements not found!")
+    console.error("Profile picture elements not found!")
   }
 
   // About section
@@ -646,7 +646,7 @@ function initializeOtherModals(storage) {
       if (cvFileDisplay) cvFileDisplay.style.display = "none"
       if (cvFileName) cvFileName.textContent = ""
       alert("CV file deleted successfully!")
-      console.log("[v0] CV deleted")
+      console.log(" CV deleted")
     }
   })
 
