@@ -17,7 +17,7 @@
   --text-secondary: #4a5568;
   --text-tertiary: #718096;
   --text-heading: #05c8bb;
-  --text-description: #08b06a;
+  --text-description: #cfd3d3;
   --border-color: #e2e8f0;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --header-bg: white;
@@ -216,7 +216,7 @@ body.dark-mode .profile-image {
   right: 0;
   width: 50px;
   height: 50px;
-  background: #48bb78;
+  background: #f80303;
   color: white;
   border: 3px solid white;
   border-radius: 50%;
