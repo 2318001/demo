@@ -44,8 +44,7 @@ class YouTubeManager {
 
     input = input.trim()
 
-    // If it's already a valid YouTube ID (11+ characters)
-    if (/^[a-zA-Z0-9_-]{11,}$/.test(input)) {
+    if (/^[a-zA-Z0-9_-]+$/.test(input) && input.length > 0) {
       return input
     }
 
@@ -59,11 +58,6 @@ class YouTubeManager {
     const shortMatch = input.match(/youtu\.be\/([a-zA-Z0-9_-]+)/)
     if (shortMatch) {
       return shortMatch[1]
-    }
-
-    // If none match, try as direct ID even if not 11 chars
-    if (input.length > 0) {
-      return input
     }
 
     return null

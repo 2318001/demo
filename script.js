@@ -432,10 +432,10 @@ function initializeOtherModals(storage) {
       }
     })
 
-    // Load saved profile picture
     const savedProfilePic = storage.getLocal("profilePicture")
     if (savedProfilePic) {
       profileImage.src = savedProfilePic
+      console.log("[v0] Profile picture loaded from storage")
     }
   }
 
@@ -487,6 +487,7 @@ function initializeOtherModals(storage) {
   const savedAbout = storage.getLocal("aboutContent")
   if (savedAbout && aboutContent) aboutContent.textContent = savedAbout
 
+  // CV section
   const editCvBtn = document.getElementById("editCvBtn")
   const editCvModal = document.getElementById("editCvModal")
   const editCvForm = document.getElementById("editCvForm")
@@ -511,6 +512,7 @@ function initializeOtherModals(storage) {
       if (cvContent) cvContent.innerHTML = newText
       storage.setLocal("cvContent", newText)
       editCvModal.style.display = "none"
+      alert("CV content updated successfully!")
     })
   }
 
@@ -529,10 +531,9 @@ function initializeOtherModals(storage) {
         const reader = new FileReader()
         reader.onload = (event) => {
           storage.setLocal("cvFileData", event.target.result)
+          alert(`CV file "${file.name}" uploaded successfully!`)
         }
         reader.readAsDataURL(file)
-
-        alert(`CV file "${file.name}" uploaded successfully!`)
       }
     })
   }
@@ -551,6 +552,27 @@ function initializeOtherModals(storage) {
       }
     })
   }
+
+  const deleteCvBtn = document.createElement("button")
+  deleteCvBtn.id = "deleteCvBtn"
+  deleteCvBtn.className = "delete-btn"
+  deleteCvBtn.textContent = "Delete CV"
+  deleteCvBtn.style.marginLeft = "10px"
+
+  if (cvFileDisplay && viewCvBtn) {
+    viewCvBtn.parentNode.insertBefore(deleteCvBtn, viewCvBtn.nextSibling)
+  }
+
+  deleteCvBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to delete the CV? This cannot be undone.")) {
+      storage.removeLocal("cvFileName")
+      storage.removeLocal("cvFileData")
+      if (cvFileDisplay) cvFileDisplay.style.display = "none"
+      if (cvFileName) cvFileName.textContent = ""
+      alert("CV file deleted successfully!")
+      console.log("[v0] CV deleted")
+    }
+  })
 
   const savedCv = storage.getLocal("cvContent")
   if (savedCv && cvContent) cvContent.innerHTML = savedCv
