@@ -165,7 +165,7 @@ class ProjectsManager {
     this.projectsList = document.getElementById("projectsList")
     this.projectsEmptyState = document.getElementById("projectsEmptyState")
 
-     // ADDED: File upload elements
+    // ADDED: File upload elements
     this.projectFileInput = document.getElementById("projectFile")
     this.projectFileBtn = document.getElementById("projectFileBtn")
     this.projectFileName = document.getElementById("projectFileName")
@@ -190,7 +190,7 @@ class ProjectsManager {
       this.projectFileBtn.addEventListener("click", () => {
         this.projectFileInput.click()
       })
-   }
+    }
 
     if (this.projectFileInput) {
       this.projectFileInput.addEventListener("change", () => {
@@ -242,13 +242,13 @@ class ProjectsManager {
       timestamp: new Date().toISOString(),
       dateString: new Date().toLocaleString(),
     }
- // ADDED: Handle file upload
+    // ADDED: Handle file upload
     if (this.projectFileInput && this.projectFileInput.files.length > 0) {
       const file = this.projectFileInput.files[0]
       project.fileName = file.name
       project.fileType = file.type
       project.fileSize = file.size
-      
+
       // Convert file to base64 for storage
       try {
         project.fileData = await this.readFileAsDataURL(file)
@@ -269,6 +269,8 @@ class ProjectsManager {
       localProjects.unshift(project)
       this.storage.setLocal("projects", localProjects)
 
+      this.resetFileInput()
+
       await this.loadProjects()
     } catch (error) {
       console.error("Error saving project:", error)
@@ -276,7 +278,7 @@ class ProjectsManager {
     }
   }
 
-   // ADDED: Method to read file as data URL
+  // ADDED: Method to read file as data URL
   readFileAsDataURL(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
@@ -334,15 +336,15 @@ class ProjectsManager {
       console.error("Error loading projects:", error)
     }
   }
-// ADDED: Method to format file size
+  // ADDED: Method to format file size
   formatFileSize(bytes) {
-    if (bytes === 0) return '0 Bytes'
+    if (bytes === 0) return "0 Bytes"
     const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const sizes = ["Bytes", "KB", "MB", "GB"]
     const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
   }
-  
+
   async resetProjects() {
     if (!confirm("Are you sure you want to delete all projects? This cannot be undone.")) return
     try {
