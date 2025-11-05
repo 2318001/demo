@@ -986,3 +986,49 @@ body.dark-mode .youtube-section h3 {
     font-size: 1.2rem;
   }
 }
+/* Project file upload styles */
+.project-file {
+  margin-top: 15px;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #0ea5e9;
+}
+
+.file-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #0ea5e9;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 5px;
+  transition: background-color 0.2s;
+}
+
+.file-download:hover {
+  background: #0284c7;
+}
+
+.cta-btn.secondary {
+  background: #64748b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.cta-btn.secondary:hover {
+  background: #475569;
+}
+
+#projectFileName {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #64748b;
+}

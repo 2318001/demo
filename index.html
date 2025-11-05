@@ -190,6 +190,14 @@
                               aria-describedby="projectDescError"></textarea>
                     <span class="error-message" id="projectDescError"></span>
                 </div>
+                 <!-- ADD THIS SECTION FOR FILE UPLOAD -->
+            <div class="form-group">
+                <label for="projectFile">Project File (Optional)</label>
+                <input type="file" id="projectFile" accept="*/*" style="display:none">
+                <button type="button" id="projectFileBtn" class="cta-btn secondary">Choose File</button>
+                <span id="projectFileName">No file chosen</span>
+            </div>
+            <!-- END OF FILE UPLOAD SECTION -->
 
                 <button type="submit" class="cta-btn primary">Submit</button>
             </form>

@@ -165,6 +165,11 @@ class ProjectsManager {
     this.projectsList = document.getElementById("projectsList")
     this.projectsEmptyState = document.getElementById("projectsEmptyState")
 
+     // ADDED: File upload elements
+    this.projectFileInput = document.getElementById("projectFile")
+    this.projectFileBtn = document.getElementById("projectFileBtn")
+    this.projectFileName = document.getElementById("projectFileName")
+
     this.init()
   }
 
@@ -179,6 +184,22 @@ class ProjectsManager {
     }
     if (this.resetProjectsBtn) {
       this.resetProjectsBtn.addEventListener("click", () => this.resetProjects())
+    }
+    // ADDED: File upload event listeners
+    if (this.projectFileBtn && this.projectFileInput) {
+      this.projectFileBtn.addEventListener("click", () => {
+        this.projectFileInput.click()
+      })
+   }
+
+    if (this.projectFileInput) {
+      this.projectFileInput.addEventListener("change", () => {
+        if (this.projectFileInput.files.length > 0) {
+          this.projectFileName.textContent = this.projectFileInput.files[0].name
+        } else {
+          this.projectFileName.textContent = "No file chosen"
+        }
+      })
     }
   }
 
@@ -221,7 +242,22 @@ class ProjectsManager {
       timestamp: new Date().toISOString(),
       dateString: new Date().toLocaleString(),
     }
-
+ // ADDED: Handle file upload
+    if (this.projectFileInput && this.projectFileInput.files.length > 0) {
+      const file = this.projectFileInput.files[0]
+      project.fileName = file.name
+      project.fileType = file.type
+      project.fileSize = file.size
+      
+      // Convert file to base64 for storage
+      try {
+        project.fileData = await this.readFileAsDataURL(file)
+      } catch (error) {
+        console.error("Error reading file:", error)
+        alert("Error reading the file. Please try again.")
+        return
+      }
+    }
     try {
       if (this.storage && typeof this.storage.addToIndexedDB === "function") {
         await this.storage.addToIndexedDB("projects", project)
@@ -237,6 +273,26 @@ class ProjectsManager {
     } catch (error) {
       console.error("Error saving project:", error)
       alert("Error saving project. Please try again.")
+    }
+  }
+
+   // ADDED: Method to read file as data URL
+  readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = (event) => resolve(event.target.result)
+      reader.onerror = (error) => reject(error)
+      reader.readAsDataURL(file)
+    })
+  }
+
+  // ADDED: Method to reset file input
+  resetFileInput() {
+    if (this.projectFileInput) {
+      this.projectFileInput.value = ""
+    }
+    if (this.projectFileName) {
+      this.projectFileName.textContent = "No file chosen"
     }
   }
 
@@ -278,7 +334,15 @@ class ProjectsManager {
       console.error("Error loading projects:", error)
     }
   }
-
+// ADDED: Method to format file size
+  formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+  }
+  
   async resetProjects() {
     if (!confirm("Are you sure you want to delete all projects? This cannot be undone.")) return
     try {
