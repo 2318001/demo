@@ -413,7 +413,12 @@ function initializeOtherModals(storage) {
   const profileImage = document.getElementById("profileImage")
 
   if (editProfilePicBtn && profilePicInput && profileImage) {
-    editProfilePicBtn.addEventListener("click", () => {
+    console.log("[v0] Profile pic button found, attaching click handler")
+
+    editProfilePicBtn.addEventListener("click", (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      console.log("[v0] Profile pic button clicked, triggering file input")
       profilePicInput.click()
     })
 
@@ -437,6 +442,8 @@ function initializeOtherModals(storage) {
       profileImage.src = savedProfilePic
       console.log("[v0] Profile picture loaded from storage")
     }
+  } else {
+    console.error("[v0] Profile picture elements not found!")
   }
 
   // About section
