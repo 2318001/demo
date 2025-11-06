@@ -174,7 +174,7 @@ main {
 
 .description {
   font-size: 1.1rem;
-  color: black;
+  color: rgb(229, 228, 228);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   transition: color 0.3s ease;
